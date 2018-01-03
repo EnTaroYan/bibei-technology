@@ -79,4 +79,7 @@ public:
 	afx_msg void OnBnClickedButtonFjpl();
 	CStatic m_static_14;
 	CString m_strStatic14;
+	afx_msg void OnBnClickedButtonTimeStart();
+	afx_msg void OnBnClickedButtonTimePause();
+	afx_msg void OnBnClickedButtonTimeClear();
 };

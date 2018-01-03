@@ -131,4 +131,7 @@ public:
 	 CString m_strStatic13;
 	 CStatic m_static_13;
 	 afx_msg void OnBnClickedButtonCnfs2();
+	 afx_msg void OnBnClickedButtonTimeStart();
+	 afx_msg void OnBnClickedButtonTimePause();
+	 afx_msg void OnBnClickedButtonTimeClear();
 };

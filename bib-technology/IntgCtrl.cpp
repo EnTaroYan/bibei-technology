@@ -12,6 +12,7 @@
 #include "DataCtrl.h"
 #include "ChoosingModeDlg.h"
 #include "bib-technologyDlg.h"
+#include <Mmsystem.h>
 
 extern CDataCtrl* pDtaCtrlDlg;
 extern CbibtechnologyDlg* pMainDlg;
@@ -208,6 +209,9 @@ BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
 	ON_WM_SIZE()
 	ON_BN_CLICKED(IDC_BUTTON_MODE, &CIntgCtrl::OnBnClickedButtonMode)
 	ON_BN_CLICKED(IDC_BUTTON_FJPL, &CIntgCtrl::OnBnClickedButtonFjpl)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_START, &CIntgCtrl::OnBnClickedButtonTimeStart)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_PAUSE, &CIntgCtrl::OnBnClickedButtonTimePause)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_CLEAR, &CIntgCtrl::OnBnClickedButtonTimeClear)
 END_MESSAGE_MAP()
 
 
@@ -596,4 +600,36 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
 	 Dlg.DoModal();
  }
 
+ void CIntgCtrl::OnBnClickedButtonTimeStart()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+	 g_bTimeCountEnable = TRUE;
+	 g_bTimeCountEnable = TRUE;
+	 g_TimeStartCount = timeGetTime();
+ }
 
+
+ void CIntgCtrl::OnBnClickedButtonTimePause()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+	 g_bTimeCountEnable = FALSE;
+	 DWORD timeNow = 0;
+	 DWORD time = 0;
+	 timeNow = timeGetTime();
+	 if (timeNow - g_TimeStartCount < 0)
+		 time = (timeNow - g_TimeStartCount + DWORD_MAX + g_TimePauseMs) / 1000;
+	 else
+		 time = (timeNow - g_TimeStartCount + g_TimePauseMs) / 1000;   //sec
+
+	 g_TimePauseMs = time * 1000;
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonTimeClear()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+	 g_TimeStartCount = timeGetTime();
+	 g_TimePauseMs = 0;
+	 g_strTime = m_strTime = _T("0:0:0");
+	 UpdateData(FALSE);
+ }

@@ -1,5 +1,7 @@
 ﻿// DataCtrl.cpp : 实现文件
 //
+#pragma comment( lib,"winmm.lib" )
+
 #include "stdafx.h"
 #include "bib-technology.h"
 #include "DataCtrl.h"
@@ -10,6 +12,7 @@
 #include "Md5A.h"
 #include "ChooseHeater.h"
 #include "IntgCtrl.h"
+#include <Mmsystem.h>
 
 //用于绘制曲线的头文件
 #include <math.h>
@@ -160,7 +163,7 @@ BOOL CDataCtrl::OnInitDialog()
 	m_strRealTime = tm.Format("%Y年%m月%d日\r\n%X");
 
 	UpdateData(FALSE);
-	SetTimer(3, 1000, 0);
+	SetTimer(3, 50, 0);
 	SetTimer(4, 60, NULL);
 	SetTimer(5, PLC_TX_INTERVAL, 0);
 	return 1;
@@ -256,6 +259,9 @@ BEGIN_MESSAGE_MAP(CDataCtrl, CDialogEx)
 	ON_EN_CHANGE(IDC_EDIT_RECV, &CDataCtrl::OnEnChangeEditRecv)
 	ON_BN_CLICKED(IDC_BUTTON1, &CDataCtrl::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON_CNFS2, &CDataCtrl::OnBnClickedButtonCnfs2)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_START, &CDataCtrl::OnBnClickedButtonTimeStart)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_PAUSE, &CDataCtrl::OnBnClickedButtonTimePause)
+	ON_BN_CLICKED(IDC_BUTTON_TIME_CLEAR, &CDataCtrl::OnBnClickedButtonTimeClear)
 END_MESSAGE_MAP()
 
 // CDataCtrl 消息处理程序
@@ -666,17 +672,28 @@ void CDataCtrl::OnTimer(UINT nIDEvent)
 {
 	//数据框同步
 	if (nIDEvent == 3) {
-		static int time = 0;
-		CString min, sec;
+		DWORD timeNow=0;
+		DWORD time=0;
+		CString hour,min, sec;
+		if(g_bTimeCountEnable)
+			timeNow= timeGetTime();
+		if (timeNow - g_TimeStartCount < 0)
+			time = (timeNow - g_TimeStartCount + DWORD_MAX + g_TimePauseMs) / 1000;
+		else
+			time = (timeNow - g_TimeStartCount + g_TimePauseMs) / 1000;   //sec
 
-		min.Format(_T("%d"), time / 60);
-		sec.Format(_T("%d"), time % 60);
-		Time = time;
-		time++;
-		if (time == 3600)
-			time = 0;
-		m_strTime = min + _T(":") + sec;
-		g_strTime = m_strTime;
+		if (time > 3600 * 99)
+			g_TimeStartCount = timeGetTime();
+		
+		hour.Format(_T("%d"), (int)time / 3600);
+		min.Format(_T("%d"), (int)time % 3600 / 60);
+		sec.Format(_T("%d"), (int)time % 60);
+		if (g_bTimeCountEnable)
+		{
+			Time = time;
+			m_strTime = hour + _T(":") + min + _T(":") + sec;
+			g_strTime = m_strTime;
+		}
 
 		//显示时间
 		tm = CTime::GetCurrentTime();
@@ -1214,3 +1231,37 @@ byte CDataCtrl::ValueToAsc(byte value)
 	}
 }
 
+
+
+void CDataCtrl::OnBnClickedButtonTimeStart()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	g_bTimeCountEnable = TRUE;
+	g_TimeStartCount = timeGetTime();
+}
+
+
+void CDataCtrl::OnBnClickedButtonTimePause()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	g_bTimeCountEnable = FALSE;
+	DWORD timeNow = 0;
+	DWORD time = 0;
+	timeNow = timeGetTime();
+	if (timeNow - g_TimeStartCount < 0)
+		time = (timeNow - g_TimeStartCount + DWORD_MAX + g_TimePauseMs) / 1000;
+	else
+		time = (timeNow - g_TimeStartCount + g_TimePauseMs) / 1000;   //sec
+
+	g_TimePauseMs = time * 1000;
+
+}
+
+void CDataCtrl::OnBnClickedButtonTimeClear()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	g_TimeStartCount = timeGetTime();
+	g_TimePauseMs = 0;
+	g_strTime = m_strTime=_T("0:0:0");
+	UpdateData(FALSE);
+}

@@ -59,6 +59,12 @@ extern BOOL g_bComOpen2;
 extern int g_nCom1;
 extern int g_nCom2;
 
+extern DWORD g_TimePauseMs;
+extern DWORD g_TimeStartCount;
+extern int g_nTimeCount;
+
+extern BOOL g_bTimeCountEnable;
+
 extern CString g_strComNumber1;
 extern CString g_strComNumber2;
 

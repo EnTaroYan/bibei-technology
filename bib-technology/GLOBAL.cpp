@@ -14,6 +14,12 @@ BOOL g_bComOpen2 = 0;
 int g_nCom1 = 0;
 int g_nCom2 = 0;
 
+DWORD g_TimePauseMs = 0;
+DWORD g_TimeStartCount = 0;
+int g_nTimeCount = 0;
+
+BOOL g_bTimeCountEnable = 0;
+
 POINT g_OldSizeTab2;
 POINT g_OldSizeTab;
 CString g_strComNumber1;
