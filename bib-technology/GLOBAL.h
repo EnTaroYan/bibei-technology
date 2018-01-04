@@ -22,6 +22,8 @@
 #define	  CHOOSE_HEATER12	   0x0703
 #define   CONSTANT_HEATING     0x08
 #define   CONSTANT_REFRIGING   0x09
+#define   CALIBRATE_HEATER1    0xf100
+#define   CALIBRATE_HEATER2    0xf101
 #define   CRC_ERROR			   0xF000
 
 //PLCµÿ÷∑

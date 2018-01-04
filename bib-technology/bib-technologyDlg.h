@@ -76,4 +76,5 @@ public:
 	afx_msg void On_ChooseHeater();
 	afx_msg void On_Lock();
 	afx_msg void On_Unlock();
+	afx_msg void On_calibration();
 };

@@ -116,6 +116,7 @@ BEGIN_MESSAGE_MAP(CbibtechnologyDlg, CDialogEx)
 	ON_COMMAND(ID_32790, &CbibtechnologyDlg::On_ChooseHeater)
 	ON_COMMAND(ID_32791, &CbibtechnologyDlg::On_Lock)
 	ON_COMMAND(ID_32792, &CbibtechnologyDlg::On_Unlock)
+	ON_COMMAND(ID_32793, &CbibtechnologyDlg::On_calibration)
 END_MESSAGE_MAP()
 
 
@@ -773,4 +774,13 @@ void CbibtechnologyDlg::On_Unlock()
 	// TODO: 在此添加命令处理程序代码
 	g_FlagLineOk = TRUE;
 	pDtaCtrlDlg->ForceMPLC(24, FALSE);
+}
+
+
+void CbibtechnologyDlg::On_calibration()
+{
+	// TODO: 在此添加命令处理程序代码
+	pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER1);
+	Sleep(500);
+	pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER2);
 }
