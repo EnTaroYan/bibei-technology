@@ -652,12 +652,16 @@ void CbibtechnologyDlg::OnMainTempSensor()
 {
 	// TODO: 在此添加命令处理程序代码
 	pDtaCtrlDlg->SendMessageToController(TEMPSENSOR_MAIN);
+	this->GetMenu()->EnableMenuItem(ID_32788, MF_GRAYED);
+	this->GetMenu()->EnableMenuItem(ID_32789, MF_ENABLED);
 }
 
 void CbibtechnologyDlg::OnBackupTempSensor()
 {
 	// TODO: 在此添加命令处理程序代码
 	pDtaCtrlDlg->SendMessageToController(TEMPSENSOR_BACKUP);
+	this->GetMenu()->EnableMenuItem(ID_32788, MF_ENABLED);
+	this->GetMenu()->EnableMenuItem(ID_32789, MF_GRAYED);
 }
 
 
@@ -780,7 +784,11 @@ void CbibtechnologyDlg::On_Unlock()
 void CbibtechnologyDlg::On_calibration()
 {
 	// TODO: 在此添加命令处理程序代码
-	pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER1);
-	Sleep(500);
-	pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER2);
+	if (MessageBox(_T("你确定要标定传感器?"), _T("提示:"), MB_YESNO) == IDYES)
+	{
+		pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER1);
+		Sleep(500);
+		pDtaCtrlDlg->SendMessageToController(CALIBRATE_HEATER2);
+	}
+	
 }
