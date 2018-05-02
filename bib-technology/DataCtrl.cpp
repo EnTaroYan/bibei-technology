@@ -154,8 +154,8 @@ BOOL CDataCtrl::OnInitDialog()
 	m_strStatic12 = _T("3.00m/s");
 	m_strStatic13 = _T("50Hz");
 
-	m_button_cnfs.EnableWindow(FALSE);
-	m_static_12.EnableWindow(FALSE);
+	m_button_fjpl.EnableWindow(FALSE);
+	m_static_13.EnableWindow(FALSE);
 
 	m_button_fshd.EnableWindow(FALSE);
 	//显示日期

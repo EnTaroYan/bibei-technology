@@ -384,6 +384,11 @@ void CSpeedControl::OnBnClickedOk()
 	float value= (float)_tstof(m_strSpeed);
 	CString a;
 	double frequence;
+	if (value < 0.2)
+	{
+		AfxMessageBox(_T("风速必须大于0.2米"), 0, 0);
+		return;
+	}
 	switch (g_nFlagMode)
 	{
 	case MODE_AUTO:
