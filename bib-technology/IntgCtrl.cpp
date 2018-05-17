@@ -73,11 +73,29 @@ BOOL CIntgCtrl::OnInitDialog()
 	pStatic9->SetBitmap(hBitmap1);
 
 	//设置字体
-	m_font1.CreatePointFont(300, _T("黑体"));
-	m_static0.SetFont(&m_font1);
+	m_font1.CreatePointFont(150, _T(TEXT_FONT));
+	m_button_cnfs.SetFont(&m_font1);
+	m_button_cnwd.SetFont(&m_font1);
+	m_button_fjpl.SetFont(&m_font1);
+	m_button_mode.SetFont(&m_font1);
+	m_button_rec1.SetFont(&m_font1);
+	m_button_rec2.SetFont(&m_font1);
+	m_button_rec3.SetFont(&m_font1);
+	m_button_rec4.SetFont(&m_font1);
+	m_button_rec5.SetFont(&m_font1);
+	m_button_rec6.SetFont(&m_font1);
+	m_static_11.SetFont(&m_font1);
+	m_static_12.SetFont(&m_font1);
+	m_static_13.SetFont(&m_font1);
+	m_static_14.SetFont(&m_font1);
+
 	m_font2.CreatePointFont(150, _T(TEXT_FONT));
 	m_static7.SetFont(&m_font2);
 	m_static8.SetFont(&m_font2);
+	m_static15.SetFont(&m_font2);
+	m_static16.SetFont(&m_font2);
+	m_static17.SetFont(&m_font2);
+
 	m_static9.SetFont(&m_font2);
 	m_static10.SetFont(&m_font2);
 	m_button_fjtz.SetFont(&m_font2);
@@ -91,6 +109,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_button_jwhd.SetFont(&m_font2);
 	m_font3.CreatePointFont(180, _T(TEXT_FONT));
 	CEdit *m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TIME);
+	m_static0.SetFont(&m_font3);
 	m_static1.SetFont(&m_font3);
 	m_static2.SetFont(&m_font3);
 	m_static3.SetFont(&m_font3);
@@ -99,14 +118,84 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_static6.SetFont(&m_font3);
 	m_static11.SetFont(&m_font3);
 	m_static12.SetFont(&m_font3);
-	m_button_cnfs.SetFont(&m_font3);
-	m_button_cnwd.SetFont(&m_font3);
-	m_button_fjpl.SetFont(&m_font3);
-	m_button_mode.SetFont(&m_font3);
-	m_static_11.SetFont(&m_font3);
-	m_static_12.SetFont(&m_font3);
-	m_static_13.SetFont(&m_font3);
-	m_static_14.SetFont(&m_font3);
+	m_static18.SetFont(&m_font3);
+	m_static19.SetFont(&m_font3);
+	m_static20.SetFont(&m_font3);
+	m_static21.SetFont(&m_font3);
+	m_static22.SetFont(&m_font3);
+	m_static23.SetFont(&m_font3);
+	m_static24.SetFont(&m_font3);
+	m_static25.SetFont(&m_font3);
+	m_static26.SetFont(&m_font3);
+	m_static27.SetFont(&m_font3);
+	m_static28.SetFont(&m_font3);
+	m_static29.SetFont(&m_font3);
+	m_static30.SetFont(&m_font3);
+	m_static31.SetFont(&m_font3);
+	m_static32.SetFont(&m_font3);
+	m_static33.SetFont(&m_font3);
+	m_static34.SetFont(&m_font3);
+	m_static35.SetFont(&m_font3);
+	m_static36.SetFont(&m_font3);
+	m_static37.SetFont(&m_font3);
+	m_static38.SetFont(&m_font3);
+	m_static39.SetFont(&m_font3);
+	m_static40.SetFont(&m_font3);
+	m_static41.SetFont(&m_font3);
+	m_static42.SetFont(&m_font3);
+	m_static43.SetFont(&m_font3);
+	m_static44.SetFont(&m_font3);
+	m_static45.SetFont(&m_font3);
+	m_static46.SetFont(&m_font3);
+	m_static47.SetFont(&m_font3);
+	m_static48.SetFont(&m_font3);
+	m_static49.SetFont(&m_font3);
+	m_static50.SetFont(&m_font3);
+	m_static51.SetFont(&m_font3);
+	m_static52.SetFont(&m_font3);
+	m_static53.SetFont(&m_font3);
+	m_static54.SetFont(&m_font3);
+	m_static55.SetFont(&m_font3);
+	m_static56.SetFont(&m_font3);
+	m_static57.SetFont(&m_font3);
+	m_static58.SetFont(&m_font3);
+	m_static59.SetFont(&m_font3);
+	m_static60.SetFont(&m_font3);
+	m_static61.SetFont(&m_font3);
+	m_static62.SetFont(&m_font3);
+	m_static63.SetFont(&m_font3);
+	m_static64.SetFont(&m_font3);
+	m_static65.SetFont(&m_font3);
+	m_static66.SetFont(&m_font3);
+	m_static67.SetFont(&m_font3);
+	m_static68.SetFont(&m_font3);
+	m_static69.SetFont(&m_font3);
+	m_static70.SetFont(&m_font3);
+	m_static71.SetFont(&m_font3);
+	m_static72.SetFont(&m_font3);
+	m_static73.SetFont(&m_font3);
+	m_static74.SetFont(&m_font3);
+	m_static75.SetFont(&m_font3);
+	m_static76.SetFont(&m_font3); 
+	m_static77.SetFont(&m_font3);
+	m_static78.SetFont(&m_font3);
+	m_static79.SetFont(&m_font3);
+	m_static80.SetFont(&m_font3);
+	m_static81.SetFont(&m_font3);
+	m_static88.SetFont(&m_font3);
+	m_static89.SetFont(&m_font3);
+	m_static90.SetFont(&m_font3);
+	m_static91.SetFont(&m_font3);
+	m_static92.SetFont(&m_font3);
+	m_static93.SetFont(&m_font3);
+	m_static94.SetFont(&m_font3);
+	m_static95.SetFont(&m_font3);
+	m_static96.SetFont(&m_font3);
+	m_static97.SetFont(&m_font3);
+	m_static98.SetFont(&m_font3);
+	m_static99.SetFont(&m_font3);
+	m_static100.SetFont(&m_font3);
+	
 	m_Edit->SetFont(&m_font3, FALSE);
 	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES2);
 	m_Edit->SetFont(&m_font3, FALSE);
@@ -190,8 +279,93 @@ void CIntgCtrl::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_STATIC_13, m_strStatic13);
 	DDX_Control(pDX, IDC_STATIC_14, m_static_14);
 	DDX_Text(pDX, IDC_STATIC_14, m_strStatic14);
+	DDX_Control(pDX, IDC_STATIC15, m_static15);
+	DDX_Control(pDX, IDC_STATIC17, m_static17);
+	DDX_Control(pDX, IDC_STATIC16, m_static16);
+	DDX_Control(pDX, IDC_STATIC18, m_static18);
+	DDX_Control(pDX, IDC_STATIC19, m_static19);
+	DDX_Control(pDX, IDC_STATIC20, m_static20);
+	DDX_Control(pDX, IDC_STATIC21, m_static21);
+	DDX_Control(pDX, IDC_STATIC98, m_static98);
+	DDX_Control(pDX, IDC_STATIC99, m_static99);
+	DDX_Control(pDX, IDC_STATIC100, m_static100);
+	DDX_Control(pDX, IDC_STATIC23, m_static23);
+	DDX_Control(pDX, IDC_STATIC24, m_static24);
+	DDX_Control(pDX, IDC_STATIC26, m_static26);
+	DDX_Control(pDX, IDC_STATIC27, m_static27);
+	DDX_Control(pDX, IDC_STATIC22, m_static22);
+	DDX_Control(pDX, IDC_STATIC29, m_static29);
+	DDX_Control(pDX, IDC_STATIC30, m_static30);
+	DDX_Control(pDX, IDC_STATIC25, m_static25);
+	DDX_Control(pDX, IDC_STATIC31, m_static31);
+	DDX_Control(pDX, IDC_STATIC32, m_static32);
+	DDX_Control(pDX, IDC_STATIC28, m_static28);
+	DDX_Control(pDX, IDC_STATIC35, m_static35);
+	DDX_Control(pDX, IDC_STATIC36, m_static36);
+	DDX_Control(pDX, IDC_STATIC33, m_static33);
+	DDX_Control(pDX, IDC_STATIC37, m_static37);
+	DDX_Control(pDX, IDC_STATIC38, m_static38);
+	DDX_Control(pDX, IDC_STATIC34, m_static34);
+	DDX_Control(pDX, IDC_STATIC41, m_static41);
+	DDX_Control(pDX, IDC_STATIC42, m_static42);
+	DDX_Control(pDX, IDC_STATIC39, m_static39);
+	DDX_Control(pDX, IDC_STATIC43, m_static43);
+	DDX_Control(pDX, IDC_STATIC44, m_static44);
+	DDX_Control(pDX, IDC_STATIC40, m_static40);
+	DDX_Control(pDX, IDC_STATIC47, m_static47);
+	DDX_Control(pDX, IDC_STATIC48, m_static48);
+	DDX_Control(pDX, IDC_STATIC45, m_static45);
+	DDX_Control(pDX, IDC_STATIC49, m_static49);
+	DDX_Control(pDX, IDC_STATIC50, m_static50);
+	DDX_Control(pDX, IDC_STATIC46, m_static46);
+	DDX_Control(pDX, IDC_STATIC53, m_static53);
+	DDX_Control(pDX, IDC_STATIC54, m_static54);
+	DDX_Control(pDX, IDC_STATIC51, m_static51);
+	DDX_Control(pDX, IDC_STATIC55, m_static55);
+	DDX_Control(pDX, IDC_STATIC56, m_static56);
+	DDX_Control(pDX, IDC_STATIC52, m_static52);
+	DDX_Control(pDX, IDC_STATIC59, m_static59);
+	DDX_Control(pDX, IDC_STATIC60, m_static60);
+	DDX_Control(pDX, IDC_STATIC57, m_static57);
+	DDX_Control(pDX, IDC_STATIC61, m_static61);
+	DDX_Control(pDX, IDC_STATIC62, m_static62);
+	DDX_Control(pDX, IDC_STATIC58, m_static58);
+	DDX_Control(pDX, IDC_STATIC65, m_static65);
+	DDX_Control(pDX, IDC_STATIC66, m_static66);
+	DDX_Control(pDX, IDC_STATIC63, m_static63);
+	DDX_Control(pDX, IDC_STATIC67, m_static67);
+	DDX_Control(pDX, IDC_STATIC68, m_static68);
+	DDX_Control(pDX, IDC_STATIC64, m_static64);
+	DDX_Control(pDX, IDC_STATIC71, m_static71);
+	DDX_Control(pDX, IDC_STATIC72, m_static72);
+	DDX_Control(pDX, IDC_STATIC69, m_static69);
+	DDX_Control(pDX, IDC_STATIC73, m_static73);
+	DDX_Control(pDX, IDC_STATIC74, m_static74);
+	DDX_Control(pDX, IDC_STATIC70, m_static70);
+	DDX_Control(pDX, IDC_STATIC97, m_static97);
+	DDX_Control(pDX, IDC_STATIC96, m_static96);
+	DDX_Control(pDX, IDC_STATIC95, m_static95);
+	DDX_Control(pDX, IDC_STATIC94, m_static94);
+	DDX_Control(pDX, IDC_STATIC93, m_static93);
+	DDX_Control(pDX, IDC_STATIC92, m_static92);
+	DDX_Control(pDX, IDC_STATIC91, m_static91);
+	DDX_Control(pDX, IDC_STATIC90, m_static90);
+	DDX_Control(pDX, IDC_STATIC89, m_static89);
+	DDX_Control(pDX, IDC_STATIC88, m_static88);
+	DDX_Control(pDX, IDC_BUTTON_REC1, m_button_rec1);
+	DDX_Control(pDX, IDC_BUTTON_REC2, m_button_rec2);
+	DDX_Control(pDX, IDC_BUTTON_REC3, m_button_rec3);
+	DDX_Control(pDX, IDC_BUTTON_REC4, m_button_rec4);
+	DDX_Control(pDX, IDC_BUTTON_REC5, m_button_rec5);
+	DDX_Control(pDX, IDC_BUTTON_REC6, m_button_rec6);
+	DDX_Control(pDX, IDC_STATIC77, m_static77);
+	DDX_Control(pDX, IDC_STATIC78, m_static78);
+	DDX_Control(pDX, IDC_STATIC75, m_static75);
+	DDX_Control(pDX, IDC_STATIC79, m_static79);
+	DDX_Control(pDX, IDC_STATIC80, m_static80);
+	DDX_Control(pDX, IDC_STATIC76, m_static76);
+	DDX_Control(pDX, IDC_STATIC81, m_static81);
 }
-
 
 BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_FJYX, &CIntgCtrl::OnBnClickedButtonFjyx)
@@ -212,6 +386,15 @@ BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_START, &CIntgCtrl::OnBnClickedButtonTimeStart)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_PAUSE, &CIntgCtrl::OnBnClickedButtonTimePause)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_CLEAR, &CIntgCtrl::OnBnClickedButtonTimeClear)
+	ON_BN_CLICKED(IDC_STATIC8, &CIntgCtrl::OnBnClickedStatic8)
+	ON_STN_CLICKED(IDC_PICTURE8, &CIntgCtrl::OnStnClickedPicture8)
+	ON_EN_CHANGE(IDC_EDIT_RECV, &CIntgCtrl::OnEnChangeEditRecv)
+	ON_BN_CLICKED(IDC_BUTTON_REC4, &CIntgCtrl::OnBnClickedButtonRec4)
+	ON_BN_CLICKED(IDC_BUTTON_REC1, &CIntgCtrl::OnBnClickedButtonRec1)
+	ON_BN_CLICKED(IDC_BUTTON_REC2, &CIntgCtrl::OnBnClickedButtonRec2)
+	ON_BN_CLICKED(IDC_BUTTON_REC3, &CIntgCtrl::OnBnClickedButtonRec3)
+	ON_BN_CLICKED(IDC_BUTTON_REC5, &CIntgCtrl::OnBnClickedButtonRec5)
+	ON_BN_CLICKED(IDC_BUTTON_REC6, &CIntgCtrl::OnBnClickedButtonRec6)
 END_MESSAGE_MAP()
 
 
@@ -632,4 +815,59 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
 	 g_TimePauseMs = 0;
 	 g_strTime = m_strTime = _T("0:0:0");
 	 UpdateData(FALSE);
+ }
+
+
+ void CIntgCtrl::OnBnClickedStatic8()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnStnClickedPicture8()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnEnChangeEditRecv()
+ {
+	 // TODO:  如果该控件是 RICHEDIT 控件，它将不
+	 // 发送此通知，除非重写 CDialogEx::OnInitDialog()
+	 // 函数并调用 CRichEditCtrl().SetEventMask()，
+	 // 同时将 ENM_CHANGE 标志“或”运算到掩码中。
+
+	 // TODO:  在此添加控件通知处理程序代码
+ }
+
+ void CIntgCtrl::OnBnClickedButtonRec1()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+ void CIntgCtrl::OnBnClickedButtonRec2()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonRec3()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+ void CIntgCtrl::OnBnClickedButtonRec4()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+ void CIntgCtrl::OnBnClickedButtonRec5()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonRec6()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
  }

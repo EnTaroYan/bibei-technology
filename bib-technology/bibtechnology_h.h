@@ -4,7 +4,7 @@
 
 
  /* File created by MIDL compiler version 8.00.0603 */
-/* at Wed May 02 10:11:44 2018
+/* at Tue May 15 13:37:52 2018
  */
 /* Compiler settings for bibtechnology.idl:
     Oicf, W1, Zp8, env=Win32 (32b run), target_arch=X86 8.00.0603 
