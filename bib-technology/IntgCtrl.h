@@ -177,4 +177,16 @@ public:
 	CStatic m_static80;
 	CStatic m_static76;
 	CStatic m_static81;
+	CButton m_button_arun;
+	CButton m_button_astop;
+	CButton m_button_brun;
+	CButton m_button_bstop;
+	CButton m_button_crun;
+	CButton m_button_cstop;
+	afx_msg void OnBnClickedButtonArun();
+	afx_msg void OnBnClickedButtonAstop();
+	afx_msg void OnBnClickedButtonBrun();
+	afx_msg void OnBnClickedButtonBstop();
+	afx_msg void OnBnClickedButtonCrun();
+	afx_msg void OnBnClickedButtonCstop();
 };

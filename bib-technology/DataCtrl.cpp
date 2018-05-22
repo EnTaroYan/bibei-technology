@@ -754,33 +754,63 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 {
 	SYSTEMTIME st;
 	static int count_in = 0;
-	if (Message.GetSize() < 17)
+	if (Message.GetSize() < DTRZ_TX_LEN)
 		return 0;
-	//CRC校验
+
+	//校验
 	CString str_temp;
-	WORD CRC_Value = CRC16(Message, 15);
-	if (CRC_Value != ((Message[16] << 8) | Message[15]))
-	{
+	WORD CRC_Value = CRC16(Message, DTRZ_TX_LEN-2);
+	if (CRC_Value != ((Message[DTRZ_TX_LEN-1] << 8) | Message[DTRZ_TX_LEN-2]))
 		return 0;
-	}
 	if (Message[0] != 0x23)
 		return 0;
 	if (Message[1] >= 0x01 && Message[1] <= 0x09)
 	{
 		return 1;
 	}
-	else if (Message[1] == 0xA0)
+	
+	//解析数据
+	if (Message[1] == 0xA0)  
 	{
 		//从byte转换至float
-		int dtemp, dspeed, dpressure;
-		static float ftemp, fspeed, fpressure;
-		dtemp = (Message[6] << 24) | (Message[5] << 16) | (Message[4] << 8) | Message[3];
-		dspeed = (Message[10] << 24) | (Message[9] << 16) | (Message[8] << 8) | Message[7];
-		dpressure = (Message[14] << 24) | (Message[13] << 16) | (Message[12] << 8) | Message[11];
-		ftemp = *(float*)(&dtemp);
-		if (g_FlagLineOk)
-			fspeed = *(float*)(&dspeed);
-		fpressure = *(float*)(&dpressure);
+		static int dtemp[10], dspeed_hotwire[10], dspeed_pitot[10], dpress_ms5611[10], dpress_pitot[10], dwindamt_pitot[10];
+		static float ftemp[10], fspeed_hotwire[10], fspeed_pitot[10], fpress_ms5611[10], fpress_pitot[10], fwindamt_pitot[10];
+		for (int i = 0; i != 10; ++i)
+		{
+			dpress_ms5611[i] = (Message[4 * i + 5] << 24) | (Message[4 * i + 4] << 16) | (Message[4 * i + 3] << 8) | Message[4 * i + 2];
+			fpress_ms5611[i] = *(float*)(&dpress_ms5611[i]);
+			g_strPressMS5611[i].Format(_T("%.2f"), fpress_ms5611[i]);
+		}
+		for (int i = 0; i != 3; ++i)
+		{
+			dspeed_hotwire[i] = (Message[4 * i + 45] << 24) | (Message[4 * i + 44] << 16) | (Message[4 * i + 43] << 8) | Message[4 * i + 42];
+			fspeed_hotwire[i] = *(float*)(&dspeed_hotwire[i]);
+			g_strSpeedHotWire[i].Format(_T("%.2f"), fspeed_hotwire[i]);
+		}
+		for (int i = 0; i != 3; ++i)
+		{
+			dspeed_pitot[i] = (Message[4 * i + 57] << 24) | (Message[4 * i + 56] << 16) | (Message[4 * i + 55] << 8) | Message[4 * i + 54];
+			fspeed_pitot[i] = *(float*)(&dspeed_pitot[i]);
+			g_strSpeedPitot[i].Format(_T("%.2f"), fspeed_pitot[i]);
+		}
+		for (int i = 0; i != 3; ++i)
+		{
+			dpress_pitot[i] = (Message[4 * i + 69] << 24) | (Message[4 * i + 68] << 16) | (Message[4 * i + 67] << 8) | Message[4 * i + 66];
+			fpress_pitot[i] = *(float*)(&dpress_pitot[i]);
+			g_strPressPitot[i].Format(_T("%.2f"), fpress_pitot[i]);
+		}
+		for (int i = 0; i != 3; ++i)
+		{
+			dwindamt_pitot[i] = (Message[4 * i + 81] << 24) | (Message[4 * i + 80] << 16) | (Message[4 * i + 79] << 8) | Message[4 * i + 78];
+			fwindamt_pitot[i] = *(float*)(&dwindamt_pitot[i]);
+			g_strWindAmtPitot[i].Format(_T("%.2f"), fwindamt_pitot[i]);
+		}
+
+		//ftemp = *(float*)(&dtemp);
+		//if (g_FlagLineOk)
+		//	fspeed = *(float*)(&dspeed);
+		//fpressure = *(float*)(&dpressure);
+
 		/*if (g_nFlagMode == MODE_MANU_SPEED && g_bComOpen2 && bButtonFlag[0] == 0)
 		{
 			if ((fspeed > g_fSpeedCon - 0.02) && (fspeed < g_fSpeedCon + 0.02))
@@ -788,31 +818,32 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 				ForceMPLC(24, FALSE);
 			}
 		}*/
-		//数据显示
-		m_strTemp.Format(_T("%.2f"), ftemp);
-		m_strSpeed.Format(_T("%.2f"), fspeed);
-		m_strPressure.Format(_T("%.2f"), fpressure);
 
-		str_temp.Format(_T("温度:%.2f\t风速:%.2f\t风压%.2f\r\n"), ftemp,fspeed,fpressure);
-		m_strRecvData += str_temp;
-		m_strRecvData = m_strRecvData.Right(200);
+		//数据显示
+		//m_strTemp.Format(_T("%.2f"), ftemp);
+		//m_strSpeed.Format(_T("%.2f"), fspeed);
+		//m_strPressure.Format(_T("%.2f"), fpressure);
+
+		//str_temp.Format(_T("温度:%.2f\t风速:%.2f\t风压%.2f\r\n"), ftemp,fspeed,fpressure);
+		//m_strRecvData += str_temp;
+		//m_strRecvData = m_strRecvData.Right(200);
 
 		//数据同步
-		g_strTemp = m_strTemp;
+		/*g_strTemp = m_strTemp;
 		g_strSpeed = m_strSpeed;
 		g_strPressure = m_strPressure;
-		g_strRecvData = m_strRecvData;
+		g_strRecvData = m_strRecvData;*/
 
 		//将值在曲线中更新
-		g_line_strTemp = ftemp;
+		g_line_strTemp = ftemp[0];
 		if (g_FlagLineOk)
 		{
-			g_line_strSpeed = fspeed;
+			g_line_strSpeed = fspeed_hotwire[0];
 		}
 		//将值保存在txt的变量
-		Speed_in[count_in] = fspeed;
-		SpeedPress_in[count_in] = fpressure;
-		Temp_in[count_in] = ftemp;
+		Speed_in[count_in] = fspeed_hotwire[0];
+		SpeedPress_in[count_in] = fpress_ms5611[0];
+		Temp_in[count_in] = ftemp[0];
 
 		//得到某点的时间
 		GetLocalTime(&st);

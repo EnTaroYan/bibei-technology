@@ -37,21 +37,23 @@ BOOL CIntgCtrl::OnInitDialog()
 	//获得指向静态控件的指针    
 	CStatic *pStatic1 = (CStatic *)GetDlgItem(IDC_PICTURE1);//控件ID     
 																   //设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-	CStatic *pStatic2 = (CStatic *)GetDlgItem(IDC_PICTURE2);//控件ID     
+	CStatic *pStatic2 = (CStatic *)GetDlgItem(IDC_PICTURE3);//控件ID     
 																   //设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-	CStatic *pStatic3 = (CStatic *)GetDlgItem(IDC_PICTURE3);//控件ID     
+	CStatic *pStatic3 = (CStatic *)GetDlgItem(IDC_PICTURE4);//控件ID     
 																   //设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-	CStatic *pStatic4 = (CStatic *)GetDlgItem(IDC_PICTURE4);//控件ID     
+	CStatic *pStatic4 = (CStatic *)GetDlgItem(IDC_PICTURE6);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-	CStatic *pStatic5 = (CStatic *)GetDlgItem(IDC_PICTURE5);//控件ID     
+	CStatic *pStatic5 = (CStatic *)GetDlgItem(IDC_PICTURE10);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-	CStatic *pStatic6 = (CStatic *)GetDlgItem(IDC_PICTURE6);//控件ID     
+	CStatic *pStatic6 = (CStatic *)GetDlgItem(IDC_PICTURE11);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-	CStatic *pStatic7 = (CStatic *)GetDlgItem(IDC_PICTURE7);//控件ID     
+	CStatic *pStatic7 = (CStatic *)GetDlgItem(IDC_PICTURE14);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-	CStatic *pStatic8 = (CStatic *)GetDlgItem(IDC_PICTURE8);//控件ID     
+	CStatic *pStatic8 = (CStatic *)GetDlgItem(IDC_PICTURE15);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-	CStatic *pStatic9 = (CStatic *)GetDlgItem(IDC_PICTURE9);//控件ID     
+	CStatic *pStatic9 = (CStatic *)GetDlgItem(IDC_PICTURE12);//控件ID     
+															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
+	CStatic *pStatic10 = (CStatic *)GetDlgItem(IDC_PICTURE13);//控件ID     
 															//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
 	pStatic1->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic2->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
@@ -62,6 +64,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	pStatic7->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic8->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic9->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
+	pStatic10->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic1->SetBitmap(hBitmap1);
 	pStatic2->SetBitmap(hBitmap1);
 	pStatic3->SetBitmap(hBitmap1);
@@ -71,6 +74,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	pStatic7->SetBitmap(hBitmap1);
 	pStatic8->SetBitmap(hBitmap1);
 	pStatic9->SetBitmap(hBitmap1);
+	pStatic10->SetBitmap(hBitmap1);
 
 	//设置字体
 	m_font1.CreatePointFont(150, _T(TEXT_FONT));
@@ -107,6 +111,12 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_button_jwyx.SetFont(&m_font2);
 	m_button_jwtz.SetFont(&m_font2);
 	m_button_jwhd.SetFont(&m_font2);
+	m_button_arun.SetFont(&m_font2);
+	m_button_astop.SetFont(&m_font2);
+	m_button_brun.SetFont(&m_font2);
+	m_button_bstop.SetFont(&m_font2);
+	m_button_crun.SetFont(&m_font2);
+	m_button_cstop.SetFont(&m_font2);
 	m_font3.CreatePointFont(180, _T(TEXT_FONT));
 	CEdit *m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TIME);
 	m_static0.SetFont(&m_font3);
@@ -365,6 +375,12 @@ void CIntgCtrl::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC80, m_static80);
 	DDX_Control(pDX, IDC_STATIC76, m_static76);
 	DDX_Control(pDX, IDC_STATIC81, m_static81);
+	DDX_Control(pDX, IDC_BUTTON_ARUN, m_button_arun);
+	DDX_Control(pDX, IDC_BUTTON_ASTOP, m_button_astop);
+	DDX_Control(pDX, IDC_BUTTON_BRUN, m_button_brun);
+	DDX_Control(pDX, IDC_BUTTON_BSTOP, m_button_bstop);
+	DDX_Control(pDX, IDC_BUTTON_CRUN, m_button_crun);
+	DDX_Control(pDX, IDC_BUTTON_CSTOP, m_button_cstop);
 }
 
 BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
@@ -395,6 +411,12 @@ BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_REC3, &CIntgCtrl::OnBnClickedButtonRec3)
 	ON_BN_CLICKED(IDC_BUTTON_REC5, &CIntgCtrl::OnBnClickedButtonRec5)
 	ON_BN_CLICKED(IDC_BUTTON_REC6, &CIntgCtrl::OnBnClickedButtonRec6)
+	ON_BN_CLICKED(IDC_BUTTON_ARUN, &CIntgCtrl::OnBnClickedButtonArun)
+	ON_BN_CLICKED(IDC_BUTTON_ASTOP, &CIntgCtrl::OnBnClickedButtonAstop)
+	ON_BN_CLICKED(IDC_BUTTON_BRUN, &CIntgCtrl::OnBnClickedButtonBrun)
+	ON_BN_CLICKED(IDC_BUTTON_BSTOP, &CIntgCtrl::OnBnClickedButtonBstop)
+	ON_BN_CLICKED(IDC_BUTTON_CRUN, &CIntgCtrl::OnBnClickedButtonCrun)
+	ON_BN_CLICKED(IDC_BUTTON_CSTOP, &CIntgCtrl::OnBnClickedButtonCstop)
 END_MESSAGE_MAP()
 
 
@@ -724,14 +746,14 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
 				pedit->LineScroll(pedit->GetLineCount());
 			}
 
-			if (g_nFlagMode == MODE_MANU_SPEED)
-			{
-				SetDlgItemText(IDC_BUTTON_CNFS, _T("风速设置(手动)"));
-			}
-			else if(g_nFlagMode == MODE_AUTO)
-			{
-				SetDlgItemText(IDC_BUTTON_CNFS, _T("风速设置(自动)"));
-			}
+			//if (g_nFlagMode == MODE_MANU_SPEED)
+			//{
+			//	SetDlgItemText(IDC_BUTTON_CNFS, _T("风速设置(手动)"));
+			//}
+			//else if(g_nFlagMode == MODE_AUTO)
+			//{
+			//	SetDlgItemText(IDC_BUTTON_CNFS, _T("风速设置(自动)"));
+			//}
 			break;
 		}
 	}
@@ -868,6 +890,42 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
 
 
  void CIntgCtrl::OnBnClickedButtonRec6()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonArun()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonAstop()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonBrun()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonBstop()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonCrun()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnBnClickedButtonCstop()
  {
 	 // TODO: 在此添加控件通知处理程序代码
  }

@@ -8,7 +8,11 @@
 #define   INIT_SPEED_CONSTANT        3   //初始恒定风速(单位:m/s)
 #define   INIT_FREQUENCY_CONSTANT   50   //初始风机频率(单位:Hz)
 
-#define   PLC_TX_INTERVAL      500  //向PLC发送数据的间隔时间(单位:ms)
+#define   PLC_TX_INTERVAL        500  //向PLC发送数据的间隔时间(单位:ms)
+#define   INVERTER_TX_INTERVAL   500  //向变频器发送数据的间隔时间(单位:ms)
+
+//控制器发送字节数长度
+#define   DTRZ_TX_LEN      92
 
 //控制器指令集
 #define   OPEN_REFRIGERATION   0x0301
@@ -54,6 +58,13 @@ extern CString g_strTemp;
 extern CString g_strSpeed;
 extern CString g_strPressure;
 extern CString g_strTime;
+
+extern CString g_strPressMS5611[10];
+extern CString g_strSpeedHotWire[10];
+extern CString g_strSpeedPitot[10];
+extern CString g_strPressPitot[10];
+extern CString g_strWindAmtPitot[10];
+extern CString g_strTempNew[10];
 
 extern BOOL g_bComOpen1;
 extern BOOL g_bComOpen2;

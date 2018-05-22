@@ -8,6 +8,13 @@ CString g_strSpeed;
 CString g_strPressure;
 CString g_strTime;
 
+CString g_strPressMS5611[10];
+CString g_strSpeedHotWire[10];
+CString g_strSpeedPitot[10];
+CString g_strPressPitot[10];
+CString g_strWindAmtPitot[10];
+CString g_strTempNew[10];
+
 BOOL g_bComOpen1 = 0;
 BOOL g_bComOpen2 = 0;
 
