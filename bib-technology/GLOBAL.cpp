@@ -12,8 +12,12 @@ CString g_strPressMS5611[10];
 CString g_strSpeedHotWire[10];
 CString g_strSpeedPitot[10];
 CString g_strPressPitot[10];
+CString g_strPressDiff[10];
 CString g_strWindAmtPitot[10];
+
+
 CString g_strTempNew[10];
+CString g_strRecData[6];
 
 BOOL g_bComOpen1 = 0;
 BOOL g_bComOpen2 = 0;
@@ -32,7 +36,7 @@ POINT g_OldSizeTab;
 CString g_strComNumber1;
 CString g_strComNumber2;
 
-byte bButtonFlag[3] = { 0,0,0 };
+byte bButtonFlag[5] = { 0,0,0,0,0 };
 
 int  g_nTempCon = INIT_TEMP_CONSTANT;
 float g_fSpeedCon = INIT_SPEED_CONSTANT;

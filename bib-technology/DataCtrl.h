@@ -79,7 +79,8 @@ public:
 	void WriteDToPLC(int Address, float Data);
 	void ReadMFromPLC(int Address);
 	void ForceMPLC(int Address, BOOL Value);
-	WORD PLC_CheckSum(CByteArray&);
+	void WriteToInverter(int command, int data, int datasize);
+	WORD CheckSum(CByteArray&);
 	CString m_strTemp;
 	CString m_strSpeed; 
 	CString m_strTime;

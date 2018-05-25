@@ -8,7 +8,7 @@
 #define   INIT_SPEED_CONSTANT        3   //初始恒定风速(单位:m/s)
 #define   INIT_FREQUENCY_CONSTANT   50   //初始风机频率(单位:Hz)
 
-#define   PLC_TX_INTERVAL        500  //向PLC发送数据的间隔时间(单位:ms)
+//#define   PLC_TX_INTERVAL        500  //向PLC发送数据的间隔时间(单位:ms)
 #define   INVERTER_TX_INTERVAL   500  //向变频器发送数据的间隔时间(单位:ms)
 
 //控制器发送字节数长度
@@ -29,6 +29,17 @@
 #define   CALIBRATE_HEATER1    0xf100
 #define   CALIBRATE_HEATER2    0xf101
 #define   CRC_ERROR			   0xF000
+
+//变频器指令集
+#define   INVERTER_RUN_COMMAMD          0xFA
+#define   INVERTER_RUN_DATA_START       0x02     //变频器运行
+#define   INVERTER_RUN_DATA_STOP        0x00     //变频器停止
+#define   INVERTER_SET_FREQ_COMMAND     0xED
+#define   INVERTER_RESET_CAMMAND        0xFD
+#define   INVERTER_RESET_DATA           0x9696
+
+#define   INVERTER_ENQ     0x05
+#define   INVERTER_UNIT    0x01          //变频器站号
 
 //PLC地址
 #define   ADDRESSD_SPEED_SETTING       10
@@ -63,8 +74,10 @@ extern CString g_strPressMS5611[10];
 extern CString g_strSpeedHotWire[10];
 extern CString g_strSpeedPitot[10];
 extern CString g_strPressPitot[10];
+extern CString g_strPressDiff[10];
 extern CString g_strWindAmtPitot[10];
 extern CString g_strTempNew[10];
+extern CString g_strRecData[6];
 
 extern BOOL g_bComOpen1;
 extern BOOL g_bComOpen2;
@@ -81,7 +94,7 @@ extern BOOL g_bTimeCountEnable;
 extern CString g_strComNumber1;
 extern CString g_strComNumber2;
 
-extern byte bButtonFlag[3];
+extern byte bButtonFlag[5];
 extern int g_nFlagReadPlcCmd;
 
 extern int g_nTempCon;

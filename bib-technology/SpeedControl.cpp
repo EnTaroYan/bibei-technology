@@ -397,7 +397,7 @@ void CSpeedControl::OnBnClickedOk()
 		pDtaCtrlDlg->m_strStatic12 += _T("m/s");
 		pIntgCtrlDlg->m_strStatic12.Format(_T("%.2f"), g_fSpeedCon);
 		pIntgCtrlDlg->m_strStatic12 += _T("m/s");
-		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, g_fSpeedCon);
+		//pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, g_fSpeedCon);
 		UpdateData(FALSE);
 		break;
 	case MODE_MANU_FREQUENCE:
@@ -406,7 +406,8 @@ void CSpeedControl::OnBnClickedOk()
 		pIntgCtrlDlg->m_strStatic13 += _T("Hz");
 		pDtaCtrlDlg->m_strStatic13.Format(_T("%.2f"), g_fFrequencyCon);
 		pDtaCtrlDlg->m_strStatic13 += _T("Hz");
-		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, g_fFrequencyCon);
+		//pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, g_fFrequencyCon);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_SET_FREQ_COMMAND, (int)(g_fFrequencyCon * 100), 2);
 		UpdateData(FALSE);
 		break;
 	case MODE_MANU_SPEED:
@@ -417,10 +418,8 @@ void CSpeedControl::OnBnClickedOk()
 		pIntgCtrlDlg->m_strStatic12 += _T("m/s");
 		frequence = g_fSpeedToFrequence[(int)(g_fSpeedCon*10)-1][1];
 
-		//a.Format(_T("%f"), frequence);
-		//MessageBox(a);
-
-		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, frequence);
+		//pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, frequence);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_SET_FREQ_COMMAND, (int)(frequence * 100), 2);
 		UpdateData(FALSE);
 		break;
 	default:break;

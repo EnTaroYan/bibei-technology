@@ -60,7 +60,7 @@ void CChoosingModeDlg::OnBnClickedButton1()
 	pDtaCtrlDlg->m_button_fjyx.EnableWindow(TRUE);
 	pDtaCtrlDlg->m_button_fshd.EnableWindow(FALSE);
 
-	pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
+	//pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
 	CDialogEx::OnOK();
 }
 
@@ -84,7 +84,7 @@ void CChoosingModeDlg::OnBnClickedButton2()
 	pDtaCtrlDlg->m_button_fjyx.EnableWindow(FALSE);
 	pDtaCtrlDlg->m_button_fshd.EnableWindow(TRUE);
 
-	pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, TRUE);
+	//pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, TRUE);
 	CDialogEx::OnOK();
 }
 
@@ -108,6 +108,6 @@ void CChoosingModeDlg::OnBnClickedButton10()
 	pDtaCtrlDlg->m_button_fjyx.EnableWindow(TRUE);
 	pDtaCtrlDlg->m_button_fshd.EnableWindow(FALSE);
 
-	pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
+	//pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
 	CDialogEx::OnOK();
 }

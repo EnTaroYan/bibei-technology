@@ -306,13 +306,14 @@ void CbibtechnologyDlg::OnClose()
 		} 
 		if (g_bComOpen2)
 		{
-			pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
+			/*pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
 			Sleep(400);
 			pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
 			Sleep(400);
 			pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, 0);
 			Sleep(400);
-			pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
+			pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);*/
+			pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
 		}
 	}
 	else
@@ -462,22 +463,24 @@ void CbibtechnologyDlg::SetImg(byte* bButtonFlag,int nMode)
 		//获得指向静态控件的指针    
 		CStatic *pStatic1 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE1);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-		CStatic *pStatic2 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE2);//控件ID     
+		CStatic *pStatic2 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE3);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-		CStatic *pStatic3 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE3);//控件ID     
+		CStatic *pStatic3 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE4);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-		CStatic *pStatic4 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE4);//控件ID     
+		CStatic *pStatic4 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE6);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-		CStatic *pStatic5 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE5);//控件ID     
+		CStatic *pStatic5 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE10);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-		CStatic *pStatic6 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE6);//控件ID     
+		CStatic *pStatic6 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE11);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-		CStatic *pStatic7 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE7);//控件ID     
+		CStatic *pStatic7 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE14);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中 
-		CStatic *pStatic8 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE8);//控件ID     
+		CStatic *pStatic8 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE15);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
-		CStatic *pStatic9 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE9);//控件ID     
+		CStatic *pStatic9 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE12);//控件ID     
 																//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
+		CStatic *pStatic10 = (CStatic *)m_intg.GetDlgItem(IDC_PICTURE13);//控件ID     
+																		//设置静态控件的样式，使其可以使用位图，并试位标显示使居中
 		pStatic1->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 		pStatic2->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 		pStatic3->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
@@ -487,34 +490,50 @@ void CbibtechnologyDlg::SetImg(byte* bButtonFlag,int nMode)
 		pStatic7->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 		pStatic8->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 		pStatic9->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
+		pStatic10->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 		pStatic1->SetBitmap(hBitmap1);
-		pStatic2->SetBitmap(hBitmap1);
+		pStatic2->SetBitmap(hBitmap2);
 		pStatic3->SetBitmap(hBitmap1);
-		pStatic4->SetBitmap(hBitmap1);
+		pStatic4->SetBitmap(hBitmap2);
 		pStatic5->SetBitmap(hBitmap1);
-		pStatic6->SetBitmap(hBitmap1);
+		pStatic6->SetBitmap(hBitmap2);
 		pStatic7->SetBitmap(hBitmap1);
-		pStatic8->SetBitmap(hBitmap1);
+		pStatic8->SetBitmap(hBitmap2);
 		pStatic9->SetBitmap(hBitmap1);
+		pStatic10->SetBitmap(hBitmap2);
 		switch (bButtonFlag[0])
 		{
 		case 1: pStatic1->SetBitmap(hBitmap2); break;
-		case 2: pStatic2->SetBitmap(hBitmap2); break;
-		case 3: pStatic3->SetBitmap(hBitmap2); break;
+		//case 2: pStatic2->SetBitmap(hBitmap2); break;
+		case 3: pStatic2->SetBitmap(hBitmap2); break;
 		default:break;
 		}
 		switch (bButtonFlag[1])
 		{
-		case 1: pStatic4->SetBitmap(hBitmap2); break;
-		case 2: pStatic5->SetBitmap(hBitmap2); break;
-		case 3: pStatic6->SetBitmap(hBitmap2); break;
+		case 1: pStatic3->SetBitmap(hBitmap2); break;
+		//case 2: pStatic5->SetBitmap(hBitmap2); break;
+		case 3: pStatic4->SetBitmap(hBitmap2); break;
 		default:break;
 		}
 		switch (bButtonFlag[2])
 		{
+		case 1: pStatic5->SetBitmap(hBitmap2); break;
+		//case 2: pStatic8->SetBitmap(hBitmap2); break;
+		case 3: pStatic6->SetBitmap(hBitmap2); break;
+		default:break;
+		}
+		switch (bButtonFlag[3])
+		{
 		case 1: pStatic7->SetBitmap(hBitmap2); break;
-		case 2: pStatic8->SetBitmap(hBitmap2); break;
-		case 3: pStatic9->SetBitmap(hBitmap2); break;
+			//case 2: pStatic8->SetBitmap(hBitmap2); break;
+		case 3: pStatic8->SetBitmap(hBitmap2); break;
+		default:break;
+		}
+		switch (bButtonFlag[4])
+		{
+		case 1: pStatic9->SetBitmap(hBitmap2); break;
+			//case 2: pStatic8->SetBitmap(hBitmap2); break;
+		case 3: pStatic10->SetBitmap(hBitmap2); break;
 		default:break;
 		}
 	}
@@ -677,14 +696,15 @@ void CbibtechnologyDlg::OnExit()
 	}
 	if (g_bComOpen2)
 	{
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
+		/*pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
 		Sleep(400);
 		pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
 		Sleep(400);
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, 0);
 		Sleep(400);
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
-		Sleep(300);
+		Sleep(300);*/
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
 	}
 	SYS_OK = 1;
 	OnOK();
@@ -704,7 +724,7 @@ void CbibtechnologyDlg::OnBnClickedButton1()
 	}
 	if (g_bComOpen2)
 	{
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
+		/*pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
 		Sleep(300);
 		pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
 		Sleep(300);
@@ -713,7 +733,8 @@ void CbibtechnologyDlg::OnBnClickedButton1()
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, 0);
 		Sleep(300);
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
-		Sleep(300);
+		Sleep(300);*/
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
 	}
 	SYS_OK = 1;
 	g_nFlagMode = MODE_MANU_SPEED;
@@ -746,7 +767,7 @@ void CbibtechnologyDlg::OnBnClickedButton1()
 	pDtaCtrlDlg->m_strStatic13.Format(_T("%.2f"), g_fFrequencyCon);
 	pDtaCtrlDlg->m_strStatic13 += _T("Hz");
 	UpdateData(FALSE);
-	bButtonFlag[0] = bButtonFlag[1] = bButtonFlag[2] = 0;
+	bButtonFlag[0] = bButtonFlag[1] = bButtonFlag[2] = bButtonFlag[3] = bButtonFlag[4] = 0;;
 	SetImg(bButtonFlag, 0);
 	SetImg(bButtonFlag, 1);
 
@@ -770,14 +791,14 @@ void CbibtechnologyDlg::On_Lock()
 {
 	// TODO: 在此添加命令处理程序代码
 	g_FlagLineOk = FALSE;
-	pDtaCtrlDlg->ForceMPLC(24, TRUE);
+	//pDtaCtrlDlg->ForceMPLC(24, TRUE);
 }
 
 void CbibtechnologyDlg::On_Unlock()
 {
 	// TODO: 在此添加命令处理程序代码
 	g_FlagLineOk = TRUE;
-	pDtaCtrlDlg->ForceMPLC(24, FALSE);
+	//pDtaCtrlDlg->ForceMPLC(24, FALSE);
 }
 
 

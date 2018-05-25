@@ -165,7 +165,7 @@ BOOL CDataCtrl::OnInitDialog()
 	UpdateData(FALSE);
 	SetTimer(3, 50, 0);
 	SetTimer(4, 60, NULL);
-	SetTimer(5, PLC_TX_INTERVAL, 0);
+	SetTimer(5, INVERTER_TX_INTERVAL, 0);
 	return 1;
 }
 
@@ -292,7 +292,7 @@ void CDataCtrl::OnBnClickedButtonFjyx()
 		pStatic3->SetBitmap(hBitmap3);
 		pIntgCtrlDlg->m_button_mode.EnableWindow(FALSE);
 		bButtonFlag[0] = 1;
-		ForceMPLC(ADDRESSM_START, TRUE);
+		//ForceMPLC(ADDRESSM_START, TRUE);
 	}
 }
 
@@ -324,7 +324,7 @@ void CDataCtrl::OnBnClickedButtonFshd()
 		pStatic3->SetBitmap(hBitmap3);
 		pIntgCtrlDlg->m_button_mode.EnableWindow(FALSE);
 		bButtonFlag[0] = 2;
-		ForceMPLC(ADDRESSM_START, TRUE);
+		//ForceMPLC(ADDRESSM_START, TRUE);
 	}
 }
 
@@ -356,7 +356,7 @@ void CDataCtrl::OnBnClickedButtonFjtz()
 		pStatic3->SetBitmap(hBitmap4);
 		pIntgCtrlDlg->m_button_mode.EnableWindow(TRUE);
 		bButtonFlag[0] = 3;
-		ForceMPLC(ADDRESSM_START, FALSE);
+		//ForceMPLC(ADDRESSM_START, FALSE);
 	}
 }
 
@@ -702,8 +702,8 @@ void CDataCtrl::OnTimer(UINT nIDEvent)
 	}
 	else if (nIDEvent == 5)  //定时向PLC发送数据
 	{
-		if (g_bComOpen2 && SYS_OK)
-			WriteDToPLC(ADDRESSD_SPEED_FEEDBACK, _tstof(g_strSpeed));
+		/*if (g_bComOpen2 && SYS_OK)
+			WriteDToPLC(ADDRESSD_SPEED_FEEDBACK, _tstof(g_strSpeed));*/
 	}
 	//曲线绘图定时器服务
 	if (nIDEvent == 2) {
@@ -804,6 +804,11 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 			dwindamt_pitot[i] = (Message[4 * i + 81] << 24) | (Message[4 * i + 80] << 16) | (Message[4 * i + 79] << 8) | Message[4 * i + 78];
 			fwindamt_pitot[i] = *(float*)(&dwindamt_pitot[i]);
 			g_strWindAmtPitot[i].Format(_T("%.2f"), fwindamt_pitot[i]);
+		}
+
+		for (int i = 0; i != 3; ++i)
+		{
+			g_strPressDiff[i].Format(_T("%.2f"), fpress_pitot[i]- fpress_ms5611[i]);
 		}
 
 		//ftemp = *(float*)(&dtemp);
@@ -909,7 +914,7 @@ void CDataCtrl::ReadDFromPLC(int Address)
 	Message.Add(0x30);
 	Message.Add(0x32);
 	Message.Add(0x03);
-	WORD Sum = PLC_CheckSum(Message);
+	WORD Sum = CheckSum(Message);
 	Message.Add(Sum >> 8);
 	Message.Add(Sum);
 	g_nFlagReadPlcCmd = 1;
@@ -937,7 +942,7 @@ void CDataCtrl::WriteDToPLC(int Address, float Data)
 	Message.Add(ValueToAsc((value & 0xf000) >> 12));
 	Message.Add(ValueToAsc((value & 0x0f00) >> 8));
 	Message.Add(0x03);
-	WORD Sum = PLC_CheckSum(Message);
+	WORD Sum = CheckSum(Message);
 	Message.Add(Sum >> 8);
 	Message.Add(Sum);
 	m_cComm2.put_Output((COleVariant)Message);
@@ -959,7 +964,7 @@ void CDataCtrl::ReadMFromPLC(int Address)
 	Message.Add(0x30);
 	Message.Add(0x31);
 	Message.Add(0x03);
-	WORD Sum = PLC_CheckSum(Message);
+	WORD Sum = CheckSum(Message);
 	Message.Add(Sum >> 8);
 	Message.Add(Sum);
 	g_nFlagReadPlcCmd = 2;
@@ -983,16 +988,46 @@ void CDataCtrl::ForceMPLC(int Address, BOOL Value)
 	Message.Add(pw[0]);
 	Message.Add(pw[1]);
 	Message.Add(0x03);
-	WORD Sum = PLC_CheckSum(Message);
+	WORD Sum = CheckSum(Message);
 	Message.Add(Sum >> 8);
 	Message.Add(Sum);
 	m_cComm2.put_Output((COleVariant)Message);
 }
 
-//PLC和校验
-WORD CDataCtrl::PLC_CheckSum(CByteArray& Data)
+void CDataCtrl::WriteToInverter(int command, int data, int datasize)
 {
-	byte Sum = 0;
+	CByteArray Message;
+	Message.Add(INVERTER_ENQ);
+	Message.Add(0x31);
+	CString str;
+	str.Format(_T("%02X"), INVERTER_UNIT);
+	WORD* pw = (WORD*)str.GetBuffer();
+	Message.Add(pw[0]);
+	Message.Add(pw[1]);
+	str.Format(_T("%02X"), command);
+	pw = (WORD*)str.GetBuffer();
+	Message.Add(pw[0]);
+	Message.Add(pw[1]);
+	switch (datasize)
+	{
+		case 2:str.Format(_T("%02X"), data);break;
+		case 4:str.Format(_T("%04X"), data); break;
+		default:
+			return;
+	}
+	pw = (WORD*)str.GetBuffer();
+	for (int i = 0; i != datasize; i++)
+		Message.Add(pw[i]);
+	WORD Sum = CheckSum(Message);
+	Message.Add(Sum >> 8);
+	Message.Add(Sum);
+	m_cComm2.put_Output((COleVariant)Message);
+}
+
+//和校验
+WORD CDataCtrl::CheckSum(CByteArray& Data)
+{
+	int Sum = 0;
 	int len = Data.GetSize();
 	for (len -= 1; len != 0; len--)
 		Sum += Data[len];
@@ -1001,7 +1036,6 @@ WORD CDataCtrl::PLC_CheckSum(CByteArray& Data)
 	WORD* sum = (WORD*)str.GetBuffer();
 	return (sum[0] << 8) + sum[1];
 }
-
 
 void CDataCtrl::OnSize(UINT nType, int cx, int cy)
 {

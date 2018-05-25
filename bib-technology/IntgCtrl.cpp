@@ -66,15 +66,15 @@ BOOL CIntgCtrl::OnInitDialog()
 	pStatic9->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic10->ModifyStyle(0xF, SS_BITMAP | SS_CENTERIMAGE);
 	pStatic1->SetBitmap(hBitmap1);
-	pStatic2->SetBitmap(hBitmap1);
+	pStatic2->SetBitmap(hBitmap2);
 	pStatic3->SetBitmap(hBitmap1);
-	pStatic4->SetBitmap(hBitmap1);
+	pStatic4->SetBitmap(hBitmap2);
 	pStatic5->SetBitmap(hBitmap1);
-	pStatic6->SetBitmap(hBitmap1);
+	pStatic6->SetBitmap(hBitmap2);
 	pStatic7->SetBitmap(hBitmap1);
-	pStatic8->SetBitmap(hBitmap1);
+	pStatic8->SetBitmap(hBitmap2);
 	pStatic9->SetBitmap(hBitmap1);
-	pStatic10->SetBitmap(hBitmap1);
+	pStatic10->SetBitmap(hBitmap2);
 
 	//设置字体
 	m_font1.CreatePointFont(150, _T(TEXT_FONT));
@@ -118,7 +118,6 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_button_crun.SetFont(&m_font2);
 	m_button_cstop.SetFont(&m_font2);
 	m_font3.CreatePointFont(180, _T(TEXT_FONT));
-	CEdit *m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TIME);
 	m_static0.SetFont(&m_font3);
 	m_static1.SetFont(&m_font3);
 	m_static2.SetFont(&m_font3);
@@ -206,12 +205,139 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_static99.SetFont(&m_font3);
 	m_static100.SetFont(&m_font3);
 	
-	m_Edit->SetFont(&m_font3, FALSE);
-	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES2);
+	CEdit *m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TIME);
 	m_Edit->SetFont(&m_font3, FALSE);
 	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED);
 	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED10);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES1);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES10);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT1);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT10);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP1);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP10);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP1);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP10);
+	m_Edit->SetFont(&m_font3, FALSE);
 	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP2);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP3);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP4);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP5);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP6);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP7);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP8);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP9);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP10);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_SPEED_REC);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_WINDAMT_REC);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES_REC);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_STATICP_REC);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_DYNAMICP_REC);
+	m_Edit->SetFont(&m_font3, FALSE);
+	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TEMP_REC);
 	m_Edit->SetFont(&m_font3, FALSE);
 
 	m_strStatic11 = _T("30°C");
@@ -274,7 +400,6 @@ void CIntgCtrl::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC10, m_static10);
 	DDX_Text(pDX, IDC_EDIT_RECV, m_strRecvData);
 	DDX_Text(pDX, IDC_EDIT_TEMP, m_strTemp);
-	DDX_Text(pDX, IDC_EDIT_SPEED, m_strSpeed);
 	DDX_Text(pDX, IDC_EDIT_TIME, m_strTime);
 	DDX_Control(pDX, IDC_STATIC11, m_static11);
 	DDX_Control(pDX, IDC_STATIC12, m_static12);
@@ -381,6 +506,71 @@ void CIntgCtrl::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BUTTON_BSTOP, m_button_bstop);
 	DDX_Control(pDX, IDC_BUTTON_CRUN, m_button_crun);
 	DDX_Control(pDX, IDC_BUTTON_CSTOP, m_button_cstop);
+	DDX_Text(pDX, IDC_EDIT_SPEED, g_strSpeedHotWire[0]);
+	DDX_Text(pDX, IDC_EDIT_SPEED2, g_strSpeedHotWire[1]);
+	DDX_Text(pDX, IDC_EDIT_SPEED3, g_strSpeedHotWire[2]);
+	DDX_Text(pDX, IDC_EDIT_SPEED4, g_strSpeedPitot[0]);
+	DDX_Text(pDX, IDC_EDIT_SPEED5, g_strSpeedPitot[1]);
+	DDX_Text(pDX, IDC_EDIT_SPEED6, g_strSpeedPitot[2]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT1, g_strWindAmtPitot[0]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT2, g_strWindAmtPitot[1]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT3, g_strWindAmtPitot[2]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT4, g_strWindAmtPitot[3]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT5, g_strWindAmtPitot[4]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT6, g_strWindAmtPitot[5]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT7, g_strWindAmtPitot[6]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT8, g_strWindAmtPitot[7]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT9, g_strWindAmtPitot[8]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT10, g_strWindAmtPitot[9]);
+	DDX_Text(pDX, IDC_EDIT_PRES1, g_strPressPitot[0]);
+	DDX_Text(pDX, IDC_EDIT_PRES2, g_strPressPitot[1]);
+	DDX_Text(pDX, IDC_EDIT_PRES3, g_strPressPitot[2]);
+	DDX_Text(pDX, IDC_EDIT_PRES4, g_strPressPitot[3]);
+	DDX_Text(pDX, IDC_EDIT_PRES5, g_strPressPitot[4]);
+	DDX_Text(pDX, IDC_EDIT_PRES6, g_strPressPitot[5]);
+	DDX_Text(pDX, IDC_EDIT_PRES7, g_strPressPitot[6]);
+	DDX_Text(pDX, IDC_EDIT_PRES8, g_strPressPitot[7]);
+	DDX_Text(pDX, IDC_EDIT_PRES9, g_strPressPitot[8]);
+	DDX_Text(pDX, IDC_EDIT_PRES10, g_strPressPitot[9]);
+	DDX_Text(pDX, IDC_EDIT_STATICP1, g_strPressDiff[0]);
+	DDX_Text(pDX, IDC_EDIT_STATICP2, g_strPressDiff[1]);
+	DDX_Text(pDX, IDC_EDIT_STATICP3, g_strPressDiff[2]);
+	DDX_Text(pDX, IDC_EDIT_STATICP4, g_strPressDiff[3]);
+	DDX_Text(pDX, IDC_EDIT_STATICP5, g_strPressDiff[4]);
+	DDX_Text(pDX, IDC_EDIT_STATICP6, g_strPressDiff[5]);
+	DDX_Text(pDX, IDC_EDIT_STATICP7, g_strPressDiff[6]);
+	DDX_Text(pDX, IDC_EDIT_STATICP8, g_strPressDiff[7]);
+	DDX_Text(pDX, IDC_EDIT_STATICP9, g_strPressDiff[8]);
+	DDX_Text(pDX, IDC_EDIT_STATICP10, g_strPressDiff[9]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP1, g_strPressMS5611[0]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP2, g_strPressMS5611[1]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP3, g_strPressMS5611[2]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP4, g_strPressMS5611[3]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP5, g_strPressMS5611[4]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP6, g_strPressMS5611[5]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP7, g_strPressMS5611[6]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP8, g_strPressMS5611[7]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP9, g_strPressMS5611[8]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP10, g_strPressMS5611[9]);
+	DDX_Text(pDX, IDC_EDIT_TEMP, g_strTempNew[0]);
+	DDX_Text(pDX, IDC_EDIT_TEMP2, g_strTempNew[1]);
+	DDX_Text(pDX, IDC_EDIT_TEMP3, g_strTempNew[2]);
+	DDX_Text(pDX, IDC_EDIT_TEMP4, g_strTempNew[3]);
+	DDX_Text(pDX, IDC_EDIT_TEMP5, g_strTempNew[4]);
+	DDX_Text(pDX, IDC_EDIT_TEMP6, g_strTempNew[5]);
+	DDX_Text(pDX, IDC_EDIT_TEMP7, g_strTempNew[6]);
+	DDX_Text(pDX, IDC_EDIT_TEMP8, g_strTempNew[7]);
+	DDX_Text(pDX, IDC_EDIT_TEMP9, g_strTempNew[8]);
+	DDX_Text(pDX, IDC_EDIT_TEMP10, g_strTempNew[9]);
+
+
+	DDX_Text(pDX, IDC_EDIT_SPEED_REC, g_strRecData[0]);
+	DDX_Text(pDX, IDC_EDIT_WINDAMT_REC, g_strRecData[1]);
+	DDX_Text(pDX, IDC_EDIT_PRES_REC, g_strRecData[2]);
+	DDX_Text(pDX, IDC_EDIT_STATICP_REC, g_strRecData[3]);
+	DDX_Text(pDX, IDC_EDIT_DYNAMICP_REC, g_strRecData[4]);
+	DDX_Text(pDX, IDC_EDIT_TEMP_REC, g_strRecData[5]);
+
 }
 
 BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
@@ -448,7 +638,10 @@ void CIntgCtrl::OnBnClickedButtonFjyx()
 		pStatic3->SetBitmap(hBitmap1);
 		bButtonFlag[0] = 1;
 		m_button_mode.EnableWindow(FALSE);
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, TRUE);
+		//pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, TRUE);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_START, 1);
+		Sleep(200);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_SET_FREQ_COMMAND, (int)(g_fFrequencyCon * 100), 2);
 	}
 }
 
@@ -480,7 +673,7 @@ void CIntgCtrl::OnBnClickedButtonFshd()
 		pStatic3->SetBitmap(hBitmap1);
 		bButtonFlag[0] = 2;
 		m_button_mode.EnableWindow(FALSE);
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, TRUE); 
+		//pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, TRUE); 
 	}
 }
 
@@ -512,7 +705,8 @@ void CIntgCtrl::OnBnClickedButtonFjtz()
 		pStatic3->SetBitmap(hBitmap2);
 		m_button_mode.EnableWindow(TRUE);
 		bButtonFlag[0] = 3;
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
+		//pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
 	}
 }
 
@@ -537,12 +731,13 @@ void CIntgCtrl::OnBnClickedButtonJryx()
 																   //设置静态控件的样式，使其可以使用位图，并试位标显示使居中
 	if (MessageBox(_T("你确定要打开加热模式?"), _T("提示:"), MB_YESNO) == IDYES)
 	{
-		g_nFlagDTRZMode = 0;
+		g_nFlagDTRZMode = DTRZMODE_HEATING;
 		pStatic1->SetBitmap(hBitmap2);
 		pStatic2->SetBitmap(hBitmap1);
 		pStatic3->SetBitmap(hBitmap1);
 		bButtonFlag[1] = 1;
-		pDtaCtrlDlg->SendMessageToController(OPEN_HEATER);
+		//pDtaCtrlDlg->SendMessageToController(OPEN_HEATER);
+		pDtaCtrlDlg->SendMessageToController(CONSTANT_HEATING, g_nTempCon);
 	}
 }
 
@@ -865,33 +1060,39 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
  void CIntgCtrl::OnBnClickedButtonRec1()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[0] = g_strSpeedHotWire[0];
  }
 
  void CIntgCtrl::OnBnClickedButtonRec2()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[1] = g_strWindAmtPitot[0];
  }
 
 
  void CIntgCtrl::OnBnClickedButtonRec3()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[2] = g_strPressPitot[0];
  }
 
  void CIntgCtrl::OnBnClickedButtonRec4()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[3] = g_strPressDiff[0];
  }
 
  void CIntgCtrl::OnBnClickedButtonRec5()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[4] = g_strPressMS5611[0];
  }
 
 
  void CIntgCtrl::OnBnClickedButtonRec6()
  {
 	 // TODO: 在此添加控件通知处理程序代码
+	 g_strRecData[5] = g_strTempNew[0];
  }
 
 
