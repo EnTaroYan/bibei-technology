@@ -43,8 +43,20 @@ BOOL CDataCtrl::OnInitDialog()
 	sprintf(BeginTime, "D:\\BibTechnology\\BibData\\%d%d%d_%d%d%d.txt", stbegin.wYear, stbegin.wMonth, stbegin.wDay, stbegin.wHour, stbegin.wMinute, st.wSecond);
 	
 	//曲线图初始化
-	((CButton*)GetDlgItem(IDC_DISP_LINE1))->SetCheck(TRUE);
-	((CButton*)GetDlgItem(IDC_DISP_LINE2))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_DISP_LINE1))->SetCheck(TRUE);//温度
+	((CButton*)GetDlgItem(IDC_DISP_LINE2))->SetCheck(TRUE);//风压1
+	((CButton*)GetDlgItem(IDC_WIND_LINE1))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WIND_LINE2))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WIND_LINE3))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE2))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE3))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE4))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE5))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE6))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE7))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE8))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE9))->SetCheck(TRUE);
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE10))->SetCheck(TRUE);
 	//remember initial position
 	GetWindowRect(&m_rectOldWindow);
 	m_plot.GetWindowRect(&m_rectOldPlotWindow);
@@ -52,8 +64,21 @@ BOOL CDataCtrl::OnInitDialog()
 	ScreenToClient(&m_rectOldPlotWindow);
 	TRACE("m_rectOldPlotWindow.left=%d,m_rectOldPlotWindow.width=%d\n", m_rectOldPlotWindow.left, m_rectOldPlotWindow.Width());
 	m_plot.AddNewLine(_T("温度"), PS_SOLID, RGB(255, 0, 0));
-	m_plot.AddNewLine(_T("风速"), PS_SOLID, RGB(0, 0, 255));
-	
+	m_plot.AddNewLine(_T("风速"), PS_SOLID, RGB(0, 128, 255));
+	m_plot.AddNewLine(_T("风速2"), PS_SOLID, RGB(255, 255, 128));
+	m_plot.AddNewLine(_T("风速3"), PS_SOLID, RGB(64, 0, 128));
+	m_plot.AddNewLine(_T("风压1"), PS_SOLID, RGB(128, 255, 255));
+
+	m_plot.AddNewLine(_T("风压2"), PS_SOLID, RGB(255, 128, 128));
+	m_plot.AddNewLine(_T("风压3"), PS_SOLID, RGB(0, 128, 192));
+	m_plot.AddNewLine(_T("风压4"), PS_SOLID, RGB(128, 128, 192));
+	m_plot.AddNewLine(_T("风压5"), PS_SOLID, RGB(128, 64, 64));
+	m_plot.AddNewLine(_T("风压6"), PS_SOLID, RGB(0, 240, 61));
+	m_plot.AddNewLine(_T("风压7"), PS_SOLID, RGB(0, 128, 128));
+	m_plot.AddNewLine(_T("风速8"), PS_SOLID, RGB(0, 0, 255));
+	m_plot.AddNewLine(_T("风速9"), PS_SOLID, RGB(255,0, 128));
+	m_plot.AddNewLine(_T("风压10"), PS_SOLID, RGB(0, 128, 0));
+
 	m_plot.GetAxisX().AxisColor = RGB(0, 0, 0);
 	m_plot.GetAxisY().AxisColor = RGB(0, 0, 0);
 	//风机定时器
@@ -262,6 +287,18 @@ BEGIN_MESSAGE_MAP(CDataCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_START, &CDataCtrl::OnBnClickedButtonTimeStart)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_PAUSE, &CDataCtrl::OnBnClickedButtonTimePause)
 	ON_BN_CLICKED(IDC_BUTTON_TIME_CLEAR, &CDataCtrl::OnBnClickedButtonTimeClear)
+	ON_BN_CLICKED(IDC_WIND_LINE2, &CDataCtrl::OnBnClickedWindpLine2)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE10, &CDataCtrl::OnBnClickedWindLine10)
+	ON_BN_CLICKED(IDC_WIND_LINE1, &CDataCtrl::OnBnClickedWindpLine1)
+	ON_BN_CLICKED(IDC_WIND_LINE3, &CDataCtrl::OnBnClickedWindpLine3)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE2, &CDataCtrl::OnBnClickedWindLine2)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE3, &CDataCtrl::OnBnClickedWindLine3)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE4, &CDataCtrl::OnBnClickedWindLine4)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE5, &CDataCtrl::OnBnClickedWindLine5)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE6, &CDataCtrl::OnBnClickedWindLine6)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE7, &CDataCtrl::OnBnClickedWindLine7)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE8, &CDataCtrl::OnBnClickedWindLine8)
+	ON_BN_CLICKED(IDC_WINDPRESS_LINE9, &CDataCtrl::OnBnClickedWindLine9)
 END_MESSAGE_MAP()
 
 // CDataCtrl 消息处理程序
@@ -707,8 +744,24 @@ void CDataCtrl::OnTimer(UINT nIDEvent)
 	}
 	//曲线绘图定时器服务
 	if (nIDEvent == 2) {
-		m_plot.AddNewPoint(m_time, g_line_strTemp, 0);
-		m_plot.AddNewPoint(m_time, g_line_strSpeed, 1);
+		//添加温度（1）
+		m_plot.AddNewPoint(m_time, 55, 0);
+		//添加风速（1-3）
+		m_plot.AddNewPoint(m_time, 2.1, 1);
+		m_plot.AddNewPoint(m_time, 3.7, 2);
+		m_plot.AddNewPoint(m_time, 4.3, 3);
+		//添加风压（4-13）
+		m_plot.AddNewPoint(m_time, 6.5, 4);
+		m_plot.AddNewPoint(m_time, 11.3, 5);
+		m_plot.AddNewPoint(m_time, 7.8, 6);
+		m_plot.AddNewPoint(m_time, 23.6, 7);
+		m_plot.AddNewPoint(m_time, 7.2, 8);
+		m_plot.AddNewPoint(m_time, 7.6, 9);
+		m_plot.AddNewPoint(m_time, 7.3,10);
+		m_plot.AddNewPoint(m_time, 5.2, 11);
+		m_plot.AddNewPoint(m_time, 1.1, 12);
+		m_plot.AddNewPoint(m_time, 9.3, 13);
+		//曲线移动速度    
 		m_time += 0.0625f;
 		/*CString look;
 		look.Format(_T("%.3f"), Speed_Line);
@@ -1123,7 +1176,7 @@ void CDataCtrl::OnSize(UINT nType, int cx, int cy)
 void CDataCtrl::OnBnClickedDispLine2()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	m_plot.GetLineByIndex(1)->IsShow = ((CButton*)GetDlgItem(IDC_DISP_LINE2))->GetCheck();
+	m_plot.GetLineByIndex(4)->IsShow = ((CButton*)GetDlgItem(IDC_DISP_LINE2))->GetCheck();
 }
 
 
@@ -1329,4 +1382,88 @@ void CDataCtrl::OnBnClickedButtonTimeClear()
 	g_TimePauseMs = 0;
 	g_strTime = m_strTime=_T("0:0:0");
 	UpdateData(FALSE);
+}
+
+
+void CDataCtrl::OnBnClickedWindpLine2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(2)->IsShow = ((CButton*)GetDlgItem(IDC_WIND_LINE2))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine10()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(13)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE10))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindpLine1()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(1)->IsShow = ((CButton*)GetDlgItem(IDC_WIND_LINE1))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindpLine3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(3)->IsShow = ((CButton*)GetDlgItem(IDC_WIND_LINE3))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine2()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(5)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE2))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(6)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE3))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine4()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(7)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE4))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(8)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE5))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(9)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE6))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine7()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(10)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE7))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine8()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(11)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE8))->GetCheck();
+}
+
+
+void CDataCtrl::OnBnClickedWindLine9()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_plot.GetLineByIndex(12)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE9))->GetCheck();
 }

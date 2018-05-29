@@ -16,19 +16,21 @@ BOOL CXYSetting::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 	pXYSettingDlg = this;
-	m_Speedmin.SetRange(0, 12);
+	//风速/风压Y轴设置
+	m_Speedmin.SetRange(0, 50);
 	m_Speedmin.SetTicFreq(1);
 	m_Speedmin.SetPos(Speed_minchange);
 
-	m_Speedmax.SetRange(0, 12);
+	m_Speedmax.SetRange(0, 50);
 	m_Speedmax.SetTicFreq(1);
 	m_Speedmax.SetPos(Speed_maxchange);
 
-	m_Ymin.SetRange(-100, 200);
+	//温度Y轴设置
+	m_Ymin.SetRange(-120, 500);
 	m_Ymin.SetTicFreq(15);
 	m_Ymin.SetPos(Temp_minchange);
 
-	m_Ymax.SetRange(-100, 200);
+	m_Ymax.SetRange(-120, 500);
 	m_Ymax.SetTicFreq(15);
 	m_Ymax.SetPos(Temp_maxchange);
 	return 1;

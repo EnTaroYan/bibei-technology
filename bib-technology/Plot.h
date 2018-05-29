@@ -6,7 +6,7 @@ using namespace std;
 
 namespace RealtimeCurve {
 	const int MaxPointsCount = 1024;	// 曲线最大存储点数
-	const int MaxLinesCount = 10;	// 控件容纳最大曲线个数
+	const int MaxLinesCount = 15;	// 控件容纳最大曲线个数
 
 	class CLine
 	{
@@ -70,13 +70,13 @@ namespace RealtimeCurve {
 		CAxis(COLORREF color = RGB(0, 255, 0),
 			int style = PS_SOLID,
 			int width = 1,
-			float minValue = -50.00,
-			float maxValue = 150.00f);
+			float minValue = -120.00,
+			float maxValue = 500.00f);
 		~CAxis() {	}
 		CAxis(const CAxis& axis);
 		CAxis &operator = (const CAxis& axis);
 
-		inline void SetAxisRange(float minValue = -50.00f, float maxValue = 150.00f) {
+		inline void SetAxisRange(float minValue = -120.00f, float maxValue = 500.00f) {
 			m_axisRange.AxisMinValue = minValue;
 			m_axisRange.AxisMaxValue = maxValue;
 		}

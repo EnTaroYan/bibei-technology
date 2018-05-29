@@ -355,8 +355,9 @@ namespace RealtimeCurve {
 		MessageBox(look);*/
 
 		// 标题区域
-		m_rectTitle.left = m_rectPlot.left;
-		m_rectTitle.right = m_rectTitle.left + m_rectPlot.Width() / 2;
+		m_rectTitle.left = m_rectPlot.left-50;
+		//m_rectTitle.right = m_rectTitle.left + m_rectPlot.Width() / 2;
+		m_rectTitle.right = m_rectTitle.left +220;
 		m_rectTitle.top = m_marginTop / 2 - m_titleHight / 2;
 		m_rectTitle.bottom = m_marginTop / 2 + m_titleHight / 2;
 		// 图例区域
@@ -652,7 +653,7 @@ namespace RealtimeCurve {
 			CPen pen(nLine->LineType, nLine->LineWidth, nLine->LineColor);
 			CPen *oldPen = pDC->SelectObject(&pen);
 			// 坐标转化与处理
-			if (i == 1) {
+			if (i == 1 || i>1) {//此处对应序号为1-13的曲线使用右侧参考坐标轴（即风速、风压）
 				for (int k = 0; k<nLine->GetPointCount(); k++)
 				{
 					// 将浮点数Point坐标数据转为整数
@@ -690,8 +691,8 @@ namespace RealtimeCurve {
 	void CPlot::DrawLegend(CDC* pDC, CRect &rectZone)
 	{
 		if (!pDC->GetSafeHdc()) { return; }
-		int lineLength = 20;			// 图例线长
-		int textWidht = 60;			// 图例字体宽度
+		int lineLength = 15;			// 图例线长
+		int textWidht = 50;			// 图例字体宽度
 		int unitGap = 20;			// 两个图例间的距离
 		int xCoord = rectZone.left;// 当前X轴坐标
 								   // 遍历所有曲线
@@ -702,7 +703,7 @@ namespace RealtimeCurve {
 			pDC->MoveTo(xCoord, rectZone.top + rectZone.Height() / 2);
 			xCoord += lineLength;
 			pDC->LineTo(xCoord, rectZone.top + rectZone.Height() / 2);
-			xCoord += 5;// 向右移动5个像素点
+			//xCoord += 5;// 向右移动5个像素点
 			pDC->SelectObject(oldPen);
 			CFont font;
 			font.CreatePointFont(120, _T(TEXT_FONT), pDC);
@@ -723,7 +724,7 @@ namespace RealtimeCurve {
 		font.CreatePointFont(120, _T(TEXT_FONT), pDC);
 		CFont *oldFont = pDC->SelectObject(&font);
 		pDC->SetTextColor(RGB(0, 0, 0));
-		pDC->DrawText(_T("风速/温度实时曲线"), rectZone, DT_CENTER);
+		pDC->DrawText(_T("温度/风压/风速曲线"), rectZone, DT_CENTER);
 		pDC->SelectObject(oldFont);
 	}
 

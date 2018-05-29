@@ -135,4 +135,16 @@ public:
 	 afx_msg void OnBnClickedButtonTimeStart();
 	 afx_msg void OnBnClickedButtonTimePause();
 	 afx_msg void OnBnClickedButtonTimeClear();
+	 afx_msg void OnBnClickedWindpLine2();
+	 afx_msg void OnBnClickedWindLine10();
+	 afx_msg void OnBnClickedWindpLine1();
+	 afx_msg void OnBnClickedWindpLine3();
+	 afx_msg void OnBnClickedWindLine2();
+	 afx_msg void OnBnClickedWindLine3();
+	 afx_msg void OnBnClickedWindLine4();
+	 afx_msg void OnBnClickedWindLine5();
+	 afx_msg void OnBnClickedWindLine6();
+	 afx_msg void OnBnClickedWindLine7();
+	 afx_msg void OnBnClickedWindLine8();
+	 afx_msg void OnBnClickedWindLine9();
 };
