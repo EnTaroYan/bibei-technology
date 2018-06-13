@@ -831,7 +831,7 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 		for (int i = 0; i != 10; ++i)
 		{
 			dpress_ms5611[i] = (Message[4 * i + 5] << 24) | (Message[4 * i + 4] << 16) | (Message[4 * i + 3] << 8) | Message[4 * i + 2];
-			//fpress_ms5611[i] = *(float*)(&dpress_ms5611[i]);
+			fpress_ms5611[i] = dpress_ms5611[i];
 			g_strPressMS5611[i].Format(_T("%d"), dpress_ms5611[i]);
 		}
 		for (int i = 0; i != 3; ++i)
