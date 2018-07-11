@@ -18,6 +18,7 @@
 #include <shellapi.h>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #include "shlwapi.h"  
 #pragma comment(lib,"shlwapi.lib")  
@@ -181,6 +182,7 @@ BOOL CbibtechnologyDlg::OnInitDialog()
 	((CStatic*)GetDlgItem(IDC_STATIC_BOTTOM))->SetWindowText(_T(TEXT_BOTTOM));
 
 	//读取风速对照表
+	
 	CStdioFile  file;
 	if (!file.Open(_T("风速对照表.txt"), CFile::modeRead))
 	{
@@ -313,7 +315,7 @@ void CbibtechnologyDlg::OnClose()
 			pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, 0);
 			Sleep(400);
 			pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);*/
-			pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
+			pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 2);
 		}
 	}
 	else
@@ -704,7 +706,7 @@ void CbibtechnologyDlg::OnExit()
 		Sleep(400);
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
 		Sleep(300);*/
-		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 2);
 	}
 	SYS_OK = 1;
 	OnOK();
@@ -734,7 +736,7 @@ void CbibtechnologyDlg::OnBnClickedButton1()
 		Sleep(300);
 		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
 		Sleep(300);*/
-		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 2);
 	}
 	SYS_OK = 1;
 	g_nFlagMode = MODE_MANU_SPEED;

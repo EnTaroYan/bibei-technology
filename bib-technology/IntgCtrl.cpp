@@ -77,7 +77,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	pStatic10->SetBitmap(hBitmap2);
 
 	//设置字体
-	m_font1.CreatePointFont(150, _T(TEXT_FONT));
+	m_font1.CreatePointFont(130, _T(TEXT_FONT));
 	m_button_cnfs.SetFont(&m_font1);
 	m_button_cnwd.SetFont(&m_font1);
 	m_button_fjpl.SetFont(&m_font1);
@@ -93,7 +93,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_static_13.SetFont(&m_font1);
 	m_static_14.SetFont(&m_font1);
 
-	m_font2.CreatePointFont(150, _T(TEXT_FONT));
+	m_font2.CreatePointFont(130, _T(TEXT_FONT));
 	m_static7.SetFont(&m_font2);
 	m_static8.SetFont(&m_font2);
 	m_static15.SetFont(&m_font2);
@@ -117,7 +117,7 @@ BOOL CIntgCtrl::OnInitDialog()
 	m_button_bstop.SetFont(&m_font2);
 	m_button_crun.SetFont(&m_font2);
 	m_button_cstop.SetFont(&m_font2);
-	m_font3.CreatePointFont(180, _T(TEXT_FONT));
+	m_font3.CreatePointFont(140, _T(TEXT_FONT));
 	m_static0.SetFont(&m_font3);
 	m_static1.SetFont(&m_font3);
 	m_static2.SetFont(&m_font3);
@@ -607,6 +607,7 @@ BEGIN_MESSAGE_MAP(CIntgCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_BSTOP, &CIntgCtrl::OnBnClickedButtonBstop)
 	ON_BN_CLICKED(IDC_BUTTON_CRUN, &CIntgCtrl::OnBnClickedButtonCrun)
 	ON_BN_CLICKED(IDC_BUTTON_CSTOP, &CIntgCtrl::OnBnClickedButtonCstop)
+	ON_STN_CLICKED(IDC_STATIC80, &CIntgCtrl::OnStnClickedStatic80)
 END_MESSAGE_MAP()
 
 
@@ -639,9 +640,9 @@ void CIntgCtrl::OnBnClickedButtonFjyx()
 		bButtonFlag[0] = 1;
 		m_button_mode.EnableWindow(FALSE);
 		//pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, TRUE);
-		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_START, 1);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_START, 2);
 		Sleep(200);
-		pDtaCtrlDlg->WriteToInverter(INVERTER_SET_FREQ_COMMAND, (int)(g_fFrequencyCon * 100), 2);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_SET_FREQ_COMMAND, (int)(g_fFrequencyCon * 100), 4);
 	}
 }
 
@@ -706,7 +707,7 @@ void CIntgCtrl::OnBnClickedButtonFjtz()
 		m_button_mode.EnableWindow(TRUE);
 		bButtonFlag[0] = 3;
 		//pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
-		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 1);
+		pDtaCtrlDlg->WriteToInverter(INVERTER_RUN_COMMAMD, INVERTER_RUN_DATA_STOP, 2);
 	}
 }
 
@@ -1127,6 +1128,12 @@ void CIntgCtrl::OnBnClickedButtonFjpl()
 
 
  void CIntgCtrl::OnBnClickedButtonCstop()
+ {
+	 // TODO: 在此添加控件通知处理程序代码
+ }
+
+
+ void CIntgCtrl::OnStnClickedStatic80()
  {
 	 // TODO: 在此添加控件通知处理程序代码
  }

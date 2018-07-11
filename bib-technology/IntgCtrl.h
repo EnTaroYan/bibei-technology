@@ -189,4 +189,5 @@ public:
 	afx_msg void OnBnClickedButtonBstop();
 	afx_msg void OnBnClickedButtonCrun();
 	afx_msg void OnBnClickedButtonCstop();
+	afx_msg void OnStnClickedStatic80();
 };

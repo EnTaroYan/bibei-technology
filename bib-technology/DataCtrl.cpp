@@ -13,6 +13,7 @@
 #include "ChooseHeater.h"
 #include "IntgCtrl.h"
 #include <Mmsystem.h>
+#include <iostream>
 
 //用于绘制曲线的头文件
 #include <math.h>
@@ -68,15 +69,14 @@ BOOL CDataCtrl::OnInitDialog()
 	m_plot.AddNewLine(_T("风速2"), PS_SOLID, RGB(255, 255, 128));
 	m_plot.AddNewLine(_T("风速3"), PS_SOLID, RGB(64, 0, 128));
 	m_plot.AddNewLine(_T("风压1"), PS_SOLID, RGB(128, 255, 255));
-
 	m_plot.AddNewLine(_T("风压2"), PS_SOLID, RGB(255, 128, 128));
 	m_plot.AddNewLine(_T("风压3"), PS_SOLID, RGB(0, 128, 192));
 	m_plot.AddNewLine(_T("风压4"), PS_SOLID, RGB(128, 128, 192));
 	m_plot.AddNewLine(_T("风压5"), PS_SOLID, RGB(128, 64, 64));
 	m_plot.AddNewLine(_T("风压6"), PS_SOLID, RGB(0, 240, 61));
 	m_plot.AddNewLine(_T("风压7"), PS_SOLID, RGB(0, 128, 128));
-	m_plot.AddNewLine(_T("风速8"), PS_SOLID, RGB(0, 0, 255));
-	m_plot.AddNewLine(_T("风速9"), PS_SOLID, RGB(255,0, 128));
+	m_plot.AddNewLine(_T("风压8"), PS_SOLID, RGB(0, 0, 255));
+	m_plot.AddNewLine(_T("风压9"), PS_SOLID, RGB(255,0, 128));
 	m_plot.AddNewLine(_T("风压10"), PS_SOLID, RGB(0, 128, 0));
 
 	m_plot.GetAxisX().AxisColor = RGB(0, 0, 0);
@@ -135,7 +135,7 @@ BOOL CDataCtrl::OnInitDialog()
 	pStatic9->SetBitmap(hBitmap3);
 
 	//字体设置
-	m_font1.CreatePointFont(90, _T(TEXT_FONT));
+	m_font1.CreatePointFont(70, _T(TEXT_FONT));
 	m_static1.SetFont(&m_font1);
 	m_static2.SetFont(&m_font1);
 	m_static3.SetFont(&m_font1);
@@ -163,7 +163,7 @@ BOOL CDataCtrl::OnInitDialog()
 	m_button_jwyx.SetFont(&m_font1);
 	m_button_jwtz.SetFont(&m_font1);
 	m_button_jwhd.SetFont(&m_font1);
-	m_font2.CreatePointFont(120, _T(TEXT_FONT));
+	m_font2.CreatePointFont(100, _T(TEXT_FONT));
 	CEdit *m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_TIME);
 	m_Edit->SetFont(&m_font2, FALSE);
 	m_Edit = (CEdit *)GetDlgItem(IDC_EDIT_PRES);
@@ -630,6 +630,15 @@ void CDataCtrl::OnComm()
 	BYTE rxdata[1024]; //设置BYTE数组 An 8-bit integerthat is not signed.
 	if (m_cComm.get_CommEvent() == 2) //事件值为2表示接收缓冲区内有字符
 	{
+		//static int ss = 10;
+		//if (ss)
+		//{
+		//	CString sss;
+		//	sss.Format(_T("buf len=%d"),m_cComm.get_InBufferCount());
+		//	MessageBox(sss);
+		//	ss -= 1;
+		//}
+		
 		variant_inp = m_cComm.get_Input(); //读缓冲区
 		safearray_inp = variant_inp; //VARIANT型变量转换为ColeSafeArray型变量
 		len = safearray_inp.GetOneDimSize(); //得到有效数据长度
@@ -647,9 +656,11 @@ void CDataCtrl::OnComm()
 	//CString strMessage = m_strRecvData.Right\
 	//						(m_strRecvData.GetLength() - m_strRecvDataTemp.GetLength());
 	//m_strRecvDataTemp = m_strRecvData;
+
+	//接受数据出错
 	if (!OnMessageDisplay(array))
 	{
-		SendMessageToController(CRC_ERROR);
+		//SendMessageToController(CRC_ERROR);
 	}
 	CEdit* pedit = (CEdit*)GetDlgItem(IDC_EDIT_RECV);
 	pedit->LineScroll(pedit->GetLineCount());
@@ -806,123 +817,134 @@ void CDataCtrl::OnTimer(UINT nIDEvent)
 BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)  
 {
 	SYSTEMTIME st;
+	static CByteArray t;
 	static int count_in = 0;
-	if (Message.GetSize() < DTRZ_TX_LEN)
-		return 0;
 
-	//校验
-	CString str_temp;
-	WORD CRC_Value = CRC16(Message, DTRZ_TX_LEN-2);
-	if (CRC_Value != ((Message[DTRZ_TX_LEN-1] << 8) | Message[DTRZ_TX_LEN-2]))
-		return 0;
-	if (Message[0] != 0x23)
-		return 0;
-	if (Message[1] >= 0x01 && Message[1] <= 0x09)
+	t.Append(Message);
+	while (t.GetSize() && t[0] != 0x23)
+		t.RemoveAt(0);
+
+	if (t.GetSize() >= DTRZ_TX_LEN)
 	{
-		return 1;
-	}
-	
-	//解析数据
-	if (Message[1] == 0xA0)  
-	{
-		//从byte转换至float
-		static int dtemp[10], dspeed_hotwire[10], dspeed_pitot[10], dpress_ms5611[10], dpress_pitot[10], dwindamt_pitot[10];
-		static float ftemp[10], fspeed_hotwire[10], fspeed_pitot[10], fpress_ms5611[10], fpress_pitot[10], fwindamt_pitot[10];
-		for (int i = 0; i != 10; ++i)
+		//校验
+		CString str_temp;
+		WORD CRC_Value = CRC16(t, DTRZ_TX_LEN - 2);
+		if (CRC_Value != ((t[DTRZ_TX_LEN - 1] << 8) | t[DTRZ_TX_LEN - 2]))
 		{
-			dpress_ms5611[i] = (Message[4 * i + 5] << 24) | (Message[4 * i + 4] << 16) | (Message[4 * i + 3] << 8) | Message[4 * i + 2];
-			fpress_ms5611[i] = dpress_ms5611[i];
-			g_strPressMS5611[i].Format(_T("%d"), dpress_ms5611[i]);
-		}
-		for (int i = 0; i != 3; ++i)
-		{
-			dspeed_hotwire[i] = (Message[4 * i + 45] << 24) | (Message[4 * i + 44] << 16) | (Message[4 * i + 43] << 8) | Message[4 * i + 42];
-			fspeed_hotwire[i] = *(float*)(&dspeed_hotwire[i]);
-			g_strSpeedHotWire[i].Format(_T("%.2f"), fspeed_hotwire[i]);
-		}
-		for (int i = 0; i != 3; ++i)
-		{
-			dspeed_pitot[i] = (Message[4 * i + 57] << 24) | (Message[4 * i + 56] << 16) | (Message[4 * i + 55] << 8) | Message[4 * i + 54];
-			fspeed_pitot[i] = *(float*)(&dspeed_pitot[i]);
-			g_strSpeedPitot[i].Format(_T("%.2f"), fspeed_pitot[i]);
-		}
-		for (int i = 0; i != 3; ++i)
-		{
-			dpress_pitot[i] = (Message[4 * i + 69] << 24) | (Message[4 * i + 68] << 16) | (Message[4 * i + 67] << 8) | Message[4 * i + 66];
-			fpress_pitot[i] = *(float*)(&dpress_pitot[i]);
-			g_strPressPitot[i].Format(_T("%.2f"), fpress_pitot[i]);
-		}
-		for (int i = 0; i != 3; ++i)
-		{
-			dwindamt_pitot[i] = (Message[4 * i + 81] << 24) | (Message[4 * i + 80] << 16) | (Message[4 * i + 79] << 8) | Message[4 * i + 78];
-			fwindamt_pitot[i] = *(float*)(&dwindamt_pitot[i]);
-			g_strWindAmtPitot[i].Format(_T("%.2f"), fwindamt_pitot[i]);
+			return -1;
 		}
 
-		for (int i = 0; i != 3; ++i)
+		if (t[1] >= 0x01 && t[1] <= 0x09)
 		{
-			g_strPressDiff[i].Format(_T("%.2f"), fpress_pitot[i]- fpress_ms5611[i]);
+			return -1;
 		}
 
-		//ftemp = *(float*)(&dtemp);
-		//if (g_FlagLineOk)
-		//	fspeed = *(float*)(&dspeed);
-		//fpressure = *(float*)(&dpressure);
-
-		/*if (g_nFlagMode == MODE_MANU_SPEED && g_bComOpen2 && bButtonFlag[0] == 0)
+		//解析数据
+		if (t[1] == 0xA0)
 		{
-			if ((fspeed > g_fSpeedCon - 0.02) && (fspeed < g_fSpeedCon + 0.02))
+			//从byte转换至float
+			static int dtemp[10], dspeed_hotwire[10], dspeed_pitot[10], dpress_ms5611[10], dpress_pitot[10], dwindamt_pitot[10];
+			static float ftemp[10], fspeed_hotwire[10], fspeed_pitot[10], fpress_ms5611[10], fpress_pitot[10], fwindamt_pitot[10];
+			for (int i = 0; i != 10; ++i)
 			{
-				ForceMPLC(24, FALSE);
+				dpress_ms5611[i] = (t[4 * i + 5] << 24) | (t[4 * i + 4] << 16) | (t[4 * i + 3] << 8) | t[4 * i + 2];
+				fpress_ms5611[i] = dpress_ms5611[i];
+				g_strPressMS5611[i].Format(_T("%d"), dpress_ms5611[i]);
 			}
-		}*/
+			for (int i = 0; i != 3; ++i)
+			{
+				dspeed_hotwire[i] = (t[4 * i + 45] << 24) | (t[4 * i + 44] << 16) | (t[4 * i + 43] << 8) | t[4 * i + 42];
+				fspeed_hotwire[i] = *(float*)(&dspeed_hotwire[i]);
+				g_strSpeedHotWire[i].Format(_T("%.2f"), fspeed_hotwire[i]);
+			}
+			for (int i = 0; i != 3; ++i)
+			{
+				dspeed_pitot[i] = (t[4 * i + 57] << 24) | (t[4 * i + 56] << 16) | (t[4 * i + 55] << 8) | t[4 * i + 54];
+				fspeed_pitot[i] = *(float*)(&dspeed_pitot[i]);
+				g_strSpeedPitot[i].Format(_T("%.2f"), fspeed_pitot[i]);
+			}
+			for (int i = 0; i != 3; ++i)
+			{
+				dpress_pitot[i] = (t[4 * i + 69] << 24) | (t[4 * i + 68] << 16) | (t[4 * i + 67] << 8) | t[4 * i + 66];
+				fpress_pitot[i] = *(float*)(&dpress_pitot[i]);
+				g_strPressPitot[i].Format(_T("%.2f"), fpress_pitot[i]);
+			}
+			for (int i = 0; i != 3; ++i)
+			{
+				dwindamt_pitot[i] = (t[4 * i + 81] << 24) | (t[4 * i + 80] << 16) | (t[4 * i + 79] << 8) | t[4 * i + 78];
+				fwindamt_pitot[i] = *(float*)(&dwindamt_pitot[i]);
+				g_strWindAmtPitot[i].Format(_T("%.2f"), fwindamt_pitot[i]);
+			}
 
-		//数据显示
-		//m_strTemp.Format(_T("%.2f"), ftemp);
-		//m_strSpeed.Format(_T("%.2f"), fspeed);
-		//m_strPressure.Format(_T("%.2f"), fpressure);
+			for (int i = 0; i != 3; ++i)
+			{
+				g_strPressDiff[i].Format(_T("%.2f"), fpress_pitot[i] - fpress_ms5611[i]);
+			}
+			//ftemp = *(float*)(&dtemp);
+			//if (g_FlagLineOk)
+			//	fspeed = *(float*)(&dspeed);
+			//fpressure = *(float*)(&dpressure);
 
-		//str_temp.Format(_T("温度:%.2f\t风速:%.2f\t风压%.2f\r\n"), ftemp,fspeed,fpressure);
-		//m_strRecvData += str_temp;
-		//m_strRecvData = m_strRecvData.Right(200);
+			/*if (g_nFlagMode == MODE_MANU_SPEED && g_bComOpen2 && bButtonFlag[0] == 0)
+			{
+				if ((fspeed > g_fSpeedCon - 0.02) && (fspeed < g_fSpeedCon + 0.02))
+				{
+					ForceMPLC(24, FALSE);
+				}
+			}*/
 
-		//数据同步
-		/*g_strTemp = m_strTemp;
-		g_strSpeed = m_strSpeed;
-		g_strPressure = m_strPressure;
-		g_strRecvData = m_strRecvData;*/
+			//数据显示
+			//m_strTemp.Format(_T("%.2f"), ftemp);
+			//m_strSpeed.Format(_T("%.2f"), fspeed);
+			//m_strPressure.Format(_T("%.2f"), fpressure);
 
-		//将值在曲线中更新
-		g_line_strTemp = ftemp[0];
-		if (g_FlagLineOk)
-		{
-			g_line_strSpeed = fspeed_hotwire[0];
+			//str_temp.Format(_T("温度:%.2f\t风速:%.2f\t风压%.2f\r\n"), ftemp,fspeed,fpressure);
+			//m_strRecvData += str_temp;
+			//m_strRecvData = m_strRecvData.Right(200);
+
+			//数据同步
+			/*g_strTemp = m_strTemp;
+			g_strSpeed = m_strSpeed;
+			g_strPressure = m_strPressure;
+			g_strRecvData = m_strRecvData;*/
+
+			//将值在曲线中更新
+			g_line_strTemp = ftemp[0];
+			if (g_FlagLineOk)
+			{
+				g_line_strSpeed = fspeed_hotwire[0];
+			}
+			UpdateData(FALSE);
+
+			//将值保存在txt的变量
+			Speed_in[count_in] = fspeed_hotwire[0];
+			SpeedPress_in[count_in] = fpress_ms5611[0];
+			Temp_in[count_in] = ftemp[0];
+
+			//得到某点的时间
+			GetLocalTime(&st);
+			Year[count_in] = st.wYear;
+			Month[count_in] = st.wMonth;
+			Day[count_in] = st.wDay;
+			Hour[count_in] = st.wHour;
+			Min[count_in] = st.wMinute;
+			Sec[count_in] = st.wSecond;
+
+
+			if (count_in == number)
+			{
+				count_in = 0;
+				flag_in = 1;
+			}
+			count_in++;
+			t.RemoveAt(0, DTRZ_TX_LEN);
+			t.FreeExtra();
+			return 1;
 		}
-		//将值保存在txt的变量
-		Speed_in[count_in] = fspeed_hotwire[0];
-		SpeedPress_in[count_in] = fpress_ms5611[0];
-		Temp_in[count_in] = ftemp[0];
-
-		//得到某点的时间
-		GetLocalTime(&st);
-		Year[count_in] = st.wYear;
-		Month[count_in] = st.wMonth;
-		Day[count_in] = st.wDay;
-		Hour[count_in] = st.wHour;
-		Min[count_in] = st.wMinute;
-		Sec[count_in] = st.wSecond;
-
-
-		if (count_in == number)
-		{
-			count_in = 0;
-			flag_in = 1;
-		}
-		count_in++;
-		return 1;
+		t.RemoveAt(0, DTRZ_TX_LEN);
+		t.FreeExtra();
 	}
-	else
-		return 0;
+	return 0;
 }
 
 //发送信息到控制器
@@ -1051,7 +1073,6 @@ void CDataCtrl::WriteToInverter(int command, int data, int datasize)
 {
 	CByteArray Message;
 	Message.Add(INVERTER_ENQ);
-	Message.Add(0x31);
 	CString str;
 	str.Format(_T("%02X"), INVERTER_UNIT);
 	WORD* pw = (WORD*)str.GetBuffer();
@@ -1074,13 +1095,21 @@ void CDataCtrl::WriteToInverter(int command, int data, int datasize)
 	WORD Sum = CheckSum(Message);
 	Message.Add(Sum >> 8);
 	Message.Add(Sum);
+
+	//CString s;
+	//for (int i = 0; i != Message.GetSize(); ++i)
+	//{
+	//	s.Format(_T("%02X"), Message[i]);
+	//	MessageBox(s);
+	//}
+		
 	m_cComm2.put_Output((COleVariant)Message);
 }
 
 //和校验
 WORD CDataCtrl::CheckSum(CByteArray& Data)
 {
-	int Sum = 0;
+	byte Sum = 0;
 	int len = Data.GetSize();
 	for (len -= 1; len != 0; len--)
 		Sum += Data[len];
