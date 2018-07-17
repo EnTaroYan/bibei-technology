@@ -96,6 +96,9 @@ public:
 	afx_msg void OnBnClickedButtonCnfs();
 	CString m_strRealTime;
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
+	HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+
 	WORD AscToValue(byte asc);
 	byte ValueToAsc(byte value);
 
@@ -147,4 +150,6 @@ public:
 	 afx_msg void OnBnClickedWindLine7();
 	 afx_msg void OnBnClickedWindLine8();
 	 afx_msg void OnBnClickedWindLine9();
+	 afx_msg void OnStnClickedStaticLine5();
+	 afx_msg void OnBnClickedLineAll();
 };

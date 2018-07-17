@@ -44,6 +44,7 @@ BOOL CDataCtrl::OnInitDialog()
 	sprintf(BeginTime, "D:\\BibTechnology\\BibData\\%d%d%d_%d%d%d.txt", stbegin.wYear, stbegin.wMonth, stbegin.wDay, stbegin.wHour, stbegin.wMinute, st.wSecond);
 	
 	//曲线图初始化
+	((CButton*)GetDlgItem(IDC_LINE_ALL))->SetCheck(TRUE); 
 	((CButton*)GetDlgItem(IDC_DISP_LINE1))->SetCheck(TRUE);//温度
 	((CButton*)GetDlgItem(IDC_DISP_LINE2))->SetCheck(TRUE);//风压1
 	((CButton*)GetDlgItem(IDC_WIND_LINE1))->SetCheck(TRUE);
@@ -64,20 +65,20 @@ BOOL CDataCtrl::OnInitDialog()
 	TRACE("m_rectOldPlotWindow.left=%d,m_rectOldPlotWindow.width=%d\n", m_rectOldPlotWindow.left, m_rectOldPlotWindow.Width());
 	ScreenToClient(&m_rectOldPlotWindow);
 	TRACE("m_rectOldPlotWindow.left=%d,m_rectOldPlotWindow.width=%d\n", m_rectOldPlotWindow.left, m_rectOldPlotWindow.Width());
-	m_plot.AddNewLine(_T("温度"), PS_SOLID, RGB(255, 0, 0));
-	m_plot.AddNewLine(_T("风速"), PS_SOLID, RGB(0, 128, 255));
-	m_plot.AddNewLine(_T("风速2"), PS_SOLID, RGB(255, 255, 128));
-	m_plot.AddNewLine(_T("风速3"), PS_SOLID, RGB(64, 0, 128));
-	m_plot.AddNewLine(_T("风压1"), PS_SOLID, RGB(128, 255, 255));
-	m_plot.AddNewLine(_T("风压2"), PS_SOLID, RGB(255, 128, 128));
-	m_plot.AddNewLine(_T("风压3"), PS_SOLID, RGB(0, 128, 192));
-	m_plot.AddNewLine(_T("风压4"), PS_SOLID, RGB(128, 128, 192));
-	m_plot.AddNewLine(_T("风压5"), PS_SOLID, RGB(128, 64, 64));
-	m_plot.AddNewLine(_T("风压6"), PS_SOLID, RGB(0, 240, 61));
-	m_plot.AddNewLine(_T("风压7"), PS_SOLID, RGB(0, 128, 128));
-	m_plot.AddNewLine(_T("风压8"), PS_SOLID, RGB(0, 0, 255));
-	m_plot.AddNewLine(_T("风压9"), PS_SOLID, RGB(255,0, 128));
-	m_plot.AddNewLine(_T("风压10"), PS_SOLID, RGB(0, 128, 0));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_0 >> 16, COLOR_0 >> 8, COLOR_0 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_1 >> 16, COLOR_1 >> 8, COLOR_1 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_2 >> 16, COLOR_2 >> 8, COLOR_2 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_3 >> 16, COLOR_3 >> 8, COLOR_3 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_4 >> 16, COLOR_4 >> 8, COLOR_4 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_5 >> 16, COLOR_5 >> 8, COLOR_5 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_6 >> 16, COLOR_6 >> 8, COLOR_6 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_7 >> 16, COLOR_7 >> 8, COLOR_7 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_8 >> 16, COLOR_8 >> 8, COLOR_8 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_9 >> 16, COLOR_9 >> 8, COLOR_9 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_10 >> 16, COLOR_10 >> 8, COLOR_10 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_11 >> 16, COLOR_11 >> 8, COLOR_11 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_12 >> 16, COLOR_12 >> 8, COLOR_12 & 0x0000FF));
+	m_plot.AddNewLine(_T(""), PS_SOLID, RGB(COLOR_13 >> 16, COLOR_13 >> 8, COLOR_13 & 0x0000FF));
 
 	m_plot.GetAxisX().AxisColor = RGB(0, 0, 0);
 	m_plot.GetAxisY().AxisColor = RGB(0, 0, 0);
@@ -274,6 +275,8 @@ BEGIN_MESSAGE_MAP(CDataCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_JWHD, &CDataCtrl::OnBnClickedButtonJwhd)
 	ON_BN_CLICKED(IDC_BUTTON_JWTZ, &CDataCtrl::OnBnClickedButtonJwtz)
 	ON_WM_TIMER()
+	ON_WM_MOUSEWHEEL()
+	ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_BUTTON_CNWD, &CDataCtrl::OnBnClickedButtonCnwd)
 	ON_BN_CLICKED(IDC_BUTTON_CNFS, &CDataCtrl::OnBnClickedButtonCnfs)
 	ON_WM_SIZE()
@@ -299,6 +302,8 @@ BEGIN_MESSAGE_MAP(CDataCtrl, CDialogEx)
 	ON_BN_CLICKED(IDC_WINDPRESS_LINE7, &CDataCtrl::OnBnClickedWindLine7)
 	ON_BN_CLICKED(IDC_WINDPRESS_LINE8, &CDataCtrl::OnBnClickedWindLine8)
 	ON_BN_CLICKED(IDC_WINDPRESS_LINE9, &CDataCtrl::OnBnClickedWindLine9)
+	ON_STN_CLICKED(IDC_STATIC_LINE5, &CDataCtrl::OnStnClickedStaticLine5)
+	ON_BN_CLICKED(IDC_LINE_ALL, &CDataCtrl::OnBnClickedLineAll)
 END_MESSAGE_MAP()
 
 // CDataCtrl 消息处理程序
@@ -755,23 +760,22 @@ void CDataCtrl::OnTimer(UINT nIDEvent)
 	}
 	//曲线绘图定时器服务
 	if (nIDEvent == 2) {
-		//添加温度（1）
-		m_plot.AddNewPoint(m_time, 55, 0);
-		//添加风速（1-3）
-		m_plot.AddNewPoint(m_time, 2.1, 1);
-		m_plot.AddNewPoint(m_time, 3.7, 2);
-		m_plot.AddNewPoint(m_time, 4.3, 3);
-		//添加风压（4-13）
-		m_plot.AddNewPoint(m_time, 6.5, 4);
-		m_plot.AddNewPoint(m_time, 11.3, 5);
-		m_plot.AddNewPoint(m_time, 7.8, 6);
-		m_plot.AddNewPoint(m_time, 23.6, 7);
-		m_plot.AddNewPoint(m_time, 7.2, 8);
-		m_plot.AddNewPoint(m_time, 7.6, 9);
-		m_plot.AddNewPoint(m_time, 7.3,10);
-		m_plot.AddNewPoint(m_time, 5.2, 11);
-		m_plot.AddNewPoint(m_time, 1.1, 12);
-		m_plot.AddNewPoint(m_time, 9.3, 13);
+		//添加温度
+		//m_plot.AddNewPoint(m_time, 55, 13);
+		//添加风速
+		m_plot.AddNewPoint(m_time, _ttof(g_strSpeedHotWire[0]), 0);
+		m_plot.AddNewPoint(m_time, _ttof(g_strSpeedPitot[0]), 1);
+		m_plot.AddNewPoint(m_time, _ttof(g_strSpeedPitot[1]), 2);
+		//添加风压
+		for (int i = 0; i != min(PITOT_NUM, MS5611_NUM); ++i)
+		{
+			m_plot.AddNewPoint(m_time, (_ttof(g_strPressDiff[i]) - Y_WINDPRESS_MIN) /
+				((Y_WINDPRESS_MAX - Y_WINDPRESS_MIN) / (Y_WINDSPEED_MAX - Y_WINDSPEED_MIN)), i+3);
+		}
+		for (int i = 9; i >= min(PITOT_NUM, MS5611_NUM); --i)
+		{
+			m_plot.AddNewPoint(m_time, 0, i + 3);
+		}
 		//曲线移动速度    
 		m_time += 0.0625f;
 		/*CString look;
@@ -845,38 +849,38 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 			//从byte转换至float
 			static int dtemp[10], dspeed_hotwire[10], dspeed_pitot[10], dpress_ms5611[10], dpress_pitot[10], dwindamt_pitot[10];
 			static float ftemp[10], fspeed_hotwire[10], fspeed_pitot[10], fpress_ms5611[10], fpress_pitot[10], fwindamt_pitot[10];
-			for (int i = 0; i != 10; ++i)
+			for (int i = 0; i != MS5611_NUM; ++i)
 			{
 				dpress_ms5611[i] = (t[4 * i + 5] << 24) | (t[4 * i + 4] << 16) | (t[4 * i + 3] << 8) | t[4 * i + 2];
 				fpress_ms5611[i] = dpress_ms5611[i];
 				g_strPressMS5611[i].Format(_T("%d"), dpress_ms5611[i]);
 			}
-			for (int i = 0; i != 3; ++i)
+			for (int i = 0; i != HOTWIRE_NUM; ++i)
 			{
 				dspeed_hotwire[i] = (t[4 * i + 45] << 24) | (t[4 * i + 44] << 16) | (t[4 * i + 43] << 8) | t[4 * i + 42];
 				fspeed_hotwire[i] = *(float*)(&dspeed_hotwire[i]);
 				g_strSpeedHotWire[i].Format(_T("%.2f"), fspeed_hotwire[i]);
 			}
-			for (int i = 0; i != 3; ++i)
+			for (int i = 0; i != PITOT_NUM; ++i)
 			{
 				dspeed_pitot[i] = (t[4 * i + 57] << 24) | (t[4 * i + 56] << 16) | (t[4 * i + 55] << 8) | t[4 * i + 54];
 				fspeed_pitot[i] = *(float*)(&dspeed_pitot[i]);
 				g_strSpeedPitot[i].Format(_T("%.2f"), fspeed_pitot[i]);
 			}
-			for (int i = 0; i != 3; ++i)
+			for (int i = 0; i != PITOT_NUM; ++i)
 			{
 				dpress_pitot[i] = (t[4 * i + 69] << 24) | (t[4 * i + 68] << 16) | (t[4 * i + 67] << 8) | t[4 * i + 66];
 				fpress_pitot[i] = *(float*)(&dpress_pitot[i]);
 				g_strPressPitot[i].Format(_T("%.2f"), fpress_pitot[i]);
 			}
-			for (int i = 0; i != 3; ++i)
+			for (int i = 0; i != PITOT_NUM; ++i)
 			{
 				dwindamt_pitot[i] = (t[4 * i + 81] << 24) | (t[4 * i + 80] << 16) | (t[4 * i + 79] << 8) | t[4 * i + 78];
 				fwindamt_pitot[i] = *(float*)(&dwindamt_pitot[i]);
 				g_strWindAmtPitot[i].Format(_T("%.2f"), fwindamt_pitot[i]);
 			}
 
-			for (int i = 0; i != 3; ++i)
+			for (int i = 0; i != min(PITOT_NUM, MS5611_NUM); ++i)
 			{
 				g_strPressDiff[i].Format(_T("%.2f"), fpress_pitot[i] - fpress_ms5611[i]);
 			}
@@ -1201,6 +1205,115 @@ void CDataCtrl::OnSize(UINT nType, int cx, int cy)
 	g_OldSizeTab2 = Newp;
 }
 
+BOOL CDataCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
+{
+	CRect rc;
+	GetDlgItem(IDC_PLOT)->GetWindowRect(&rc);
+	int x = pt.x - rc.left - 50;
+	int y = rc.bottom - pt.y - 20;
+	int height = rc.Height() - 20 - 31;
+	int width = rc.Width() - 50 - 37;
+	/*CString s;
+	s.Format(_T("%d"), height);
+	MessageBox(s);*/
+	if (y > 0 && y < height)
+	{
+		if (x > 0 && x < width / 2)                //风压轴
+		{
+			double press_max_tmp = Temp_maxchange, press_min_tmp = Temp_minchange;
+			press_max_tmp -= (1 - (double)y / height) * (Y_WINDPRESS_MAX - Y_WINDPRESS_MIN) * 0.2 * zDelta / 120;
+			press_min_tmp += (double)y / height * (Y_WINDPRESS_MAX - Y_WINDPRESS_MIN) * 0.2 * zDelta / 120;
+			if (press_min_tmp >= press_max_tmp)
+				return TRUE;
+			//CString aa;
+			//aa.Format(_T("%d"), press_min_tmp);
+			//MessageBox(aa);
+			if (press_max_tmp >= Y_WINDPRESS_MAX)
+				Temp_maxchange = Y_WINDPRESS_MAX;
+			else
+				Temp_maxchange = press_max_tmp;
+			if (press_min_tmp <= Y_WINDPRESS_MIN)
+				Temp_minchange = Y_WINDPRESS_MIN;
+			else
+				Temp_minchange = press_min_tmp;
+		}
+		else if (x >= width / 2 && x < width)      //风速轴
+		{
+			double speed_max_tmp=Speed_maxchange,speed_min_tmp=Speed_minchange;
+			speed_max_tmp -= (1 - (double)y / height) * (Y_WINDSPEED_MAX - Y_WINDSPEED_MIN) * 0.2 * zDelta / 120;
+			speed_min_tmp += (double)y / height * (Y_WINDSPEED_MAX - Y_WINDSPEED_MIN) * 0.2 * zDelta / 120;
+			if (speed_min_tmp >= speed_max_tmp)
+				return TRUE;
+			if (speed_max_tmp >= Y_WINDSPEED_MAX)
+				Speed_maxchange = Y_WINDSPEED_MAX;
+			else
+				Speed_maxchange = speed_max_tmp;
+			if (speed_min_tmp <= Y_WINDSPEED_MIN)
+				Speed_minchange = Y_WINDSPEED_MIN;
+			else
+				Speed_minchange = speed_min_tmp;
+		}
+	}
+
+	return true;
+}
+
+HBRUSH CDataCtrl::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+	if (IDC_STATIC_LINE0 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_0 >> 16, COLOR_0 >> 8, COLOR_0 & 0x0000FF));
+	if (IDC_STATIC_LINE1 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_1 >> 16, COLOR_1 >> 8, COLOR_1 & 0x0000FF));
+	if (IDC_STATIC_LINE2 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_2 >> 16, COLOR_2 >> 8, COLOR_2 & 0x0000FF));
+	if (IDC_STATIC_LINE3 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_3 >> 16, COLOR_3 >> 8, COLOR_3 & 0x0000FF));
+	if (IDC_STATIC_LINE4 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_4 >> 16, COLOR_4 >> 8, COLOR_4 & 0x0000FF));
+	if (IDC_STATIC_LINE5 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_5 >> 16, COLOR_5 >> 8, COLOR_5 & 0x0000FF));
+	if (IDC_STATIC_LINE6 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_6 >> 16, COLOR_6 >> 8, COLOR_6 & 0x0000FF));
+	if (IDC_STATIC_LINE7 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_7 >> 16, COLOR_7 >> 8, COLOR_7 & 0x0000FF));
+	if (IDC_STATIC_LINE8 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_8 >> 16, COLOR_8 >> 8, COLOR_9 & 0x0000FF));
+	if (IDC_STATIC_LINE9 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_9 >> 16, COLOR_9 >> 8, COLOR_9 & 0x0000FF));
+	if (IDC_STATIC_LINE10 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_10 >> 16, COLOR_10 >> 8, COLOR_10 & 0x0000FF));
+	if (IDC_STATIC_LINE11 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_11 >> 16, COLOR_11 >> 8, COLOR_11 & 0x0000FF));
+	if (IDC_STATIC_LINE12 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_12 >> 16, COLOR_12 >> 8, COLOR_12 & 0x0000FF));
+	if (IDC_STATIC_LINE13 == pWnd->GetDlgCtrlID())//在这里判断你的控件ID，做相应的处理
+		pDC->SetTextColor(RGB(COLOR_13 >> 16, COLOR_13 >> 8, COLOR_13 & 0x0000FF));
+	return hbr;
+
+}
+
+void CDataCtrl::OnBnClickedLineAll()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	for (int i = 0; i != 14; ++i)
+		m_plot.GetLineByIndex(i)->IsShow = ((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck();
+	((CButton*)GetDlgItem(IDC_DISP_LINE1))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_DISP_LINE2))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE2))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE3))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE4))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE5))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE6))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE7))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE8))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE9))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WINDPRESS_LINE10))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WIND_LINE1))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WIND_LINE2))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+	((CButton*)GetDlgItem(IDC_WIND_LINE3))->SetCheck(((CButton*)GetDlgItem(IDC_LINE_ALL))->GetCheck());
+
+}
 
 void CDataCtrl::OnBnClickedDispLine2()
 {
@@ -1496,3 +1609,12 @@ void CDataCtrl::OnBnClickedWindLine9()
 	// TODO: 在此添加控件通知处理程序代码
 	m_plot.GetLineByIndex(12)->IsShow = ((CButton*)GetDlgItem(IDC_WINDPRESS_LINE9))->GetCheck();
 }
+
+
+void CDataCtrl::OnStnClickedStaticLine5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+}
+
+
+

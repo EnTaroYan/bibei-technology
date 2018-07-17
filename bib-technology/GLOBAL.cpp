@@ -56,11 +56,11 @@ CString Min;
 CString Sec;
 float   g_line_strTemp = 0;
 float   g_line_strSpeed = 0;
-float  Speed_minchange = 0;
-float  Speed_maxchange = 10;
+float  Speed_minchange = Y_WINDSPEED_MIN;
+float  Speed_maxchange = Y_WINDSPEED_MAX;
 
-float  Temp_minchange = -50;
-float  Temp_maxchange = 150;
+float  Temp_minchange = Y_WINDPRESS_MIN;
+float  Temp_maxchange = Y_WINDPRESS_MAX;
 int count_time = 1;
 int Time = 0;
 

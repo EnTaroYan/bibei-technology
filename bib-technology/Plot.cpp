@@ -161,8 +161,7 @@ namespace RealtimeCurve {
 		CPlot::CPlot(void)
 	{
 		//XMoveStep = 0.2f;		//每次X轴移动的值
-
-		BkGndColor = RGB(217, 217, 217);			// 默认背景颜色
+		BkGndColor = RGB(217, 217, 217);	// 默认背景颜色
 		m_axisX.AxisColor = RGB(0, 256, 0);	// 默认坐标轴颜色
 		m_axisY.AxisColor = RGB(256, 256, 0);
 		m_axisX.AxisWidth = 1;				// 默认坐标轴线宽
@@ -721,10 +720,10 @@ namespace RealtimeCurve {
 	{
 		if (!pDC->GetSafeHdc()) { return; }
 		CFont font;
-		font.CreatePointFont(120, _T(TEXT_FONT), pDC);
+		font.CreatePointFont(100, _T(TEXT_FONT), pDC);
 		CFont *oldFont = pDC->SelectObject(&font);
 		pDC->SetTextColor(RGB(0, 0, 0));
-		pDC->DrawText(_T("温度/风压/风速曲线"), rectZone, DT_CENTER);
+		//pDC->DrawText(_T("温度/风压/风速曲线"), rectZone, DT_CENTER);
 		pDC->SelectObject(oldFont);
 	}
 

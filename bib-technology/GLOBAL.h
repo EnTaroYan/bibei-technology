@@ -8,6 +8,12 @@
 #define   INIT_SPEED_CONSTANT        3   //初始恒定风速(单位:m/s)
 #define   INIT_FREQUENCY_CONSTANT   50   //初始风机频率(单位:Hz)
 
+//传感器组数
+#define   MS5611_NUM     6    //MS5611数据组数    <=10
+#define   PITOT_NUM      3    //皮托管数据组数    <=3
+#define   HOTWIRE_NUM    3    //热线风速数据组数  <=3
+#define   TEMP_NUM       0    //温度数据组数      <=0
+
 //#define   PLC_TX_INTERVAL        500  //向PLC发送数据的间隔时间(单位:ms)
 #define   INVERTER_TX_INTERVAL   500  //向变频器发送数据的间隔时间(单位:ms)
 
@@ -61,6 +67,29 @@
 
 #define   DTRZMODE_HEATING    1
 #define   DTRZMODE_REFRIGING  2
+
+//曲线坐标轴范围
+#define   Y_WINDPRESS_MIN     9000
+#define   Y_WINDPRESS_MAX     11000
+#define   Y_WINDSPEED_MIN     0
+#define   Y_WINDSPEED_MAX     10
+
+//曲线颜色
+#define  COLOR_0      0xFF0000
+#define  COLOR_1      0xFFFF00
+#define  COLOR_2      0xFF00FF
+#define  COLOR_3      0x00FF00
+#define  COLOR_4      0x00FFFF
+#define  COLOR_5      0x0000FF
+#define  COLOR_6      0x8F8F8F
+#define  COLOR_7      0x8F0000
+#define  COLOR_8      0x8F8F00
+#define  COLOR_9      0x008F8F
+#define  COLOR_10     0x008F00
+#define  COLOR_11     0x00008F
+#define  COLOR_12     0x008FFF
+#define  COLOR_13     0x8F00FF
+
 
 
 
