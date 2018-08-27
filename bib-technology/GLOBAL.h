@@ -4,6 +4,8 @@
 #define	  TEXT_BOTTOM   "比贝科技"              //修改主窗口底部文字
 #define   ACCOUNT       "bibeikeji"             //修改用户名
 
+#define TEMP_MAX 90
+
 #define   INIT_TEMP_CONSTANT        30   //初始恒定温度(单位:℃)
 #define   INIT_SPEED_CONSTANT        3   //初始恒定风速(单位:m/s)
 #define   INIT_FREQUENCY_CONSTANT   50   //初始风机频率(单位:Hz)
@@ -64,6 +66,8 @@ extern int g_nCom2;
 extern DWORD g_TimePauseMs;
 extern DWORD g_TimeStartCount;
 extern int g_nTimeCount;
+
+extern int g_nTempMax;
 
 extern BOOL g_bTimeCountEnable;
 

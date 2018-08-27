@@ -34,6 +34,8 @@ float g_fFrequencyCon = INIT_FREQUENCY_CONSTANT;
 int g_nFlagReadPlcCmd = 0;
 int g_nFlagTemp;
 
+int g_nTempMax = TEMP_MAX;
+
 int g_nFlagTempCon;
 
 int g_nFlagDTRZMode = 0;

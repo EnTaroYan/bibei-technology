@@ -830,6 +830,12 @@ BOOL CDataCtrl::OnMessageDisplay(CByteArray& Message)
 			flag_in = 1;
 		}
 		count_in++;
+
+		if (ftemp >= g_nTempMax)
+		{
+			pMainDlg->SysReset();
+			MessageBox(_T("温度超过阈值!!!已复位设备"));
+		}
 		return 1;
 	}
 	else

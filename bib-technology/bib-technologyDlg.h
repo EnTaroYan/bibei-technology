@@ -73,6 +73,7 @@ public:
 	afx_msg void OnBackupTempSensor();
 	afx_msg void OnExit();
 	afx_msg void OnBnClickedButton1();
+	void SysReset();
 	afx_msg void On_ChooseHeater();
 	afx_msg void On_Lock();
 	afx_msg void On_Unlock();

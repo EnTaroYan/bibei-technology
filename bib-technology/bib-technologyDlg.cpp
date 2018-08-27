@@ -668,25 +668,7 @@ void CbibtechnologyDlg::OnBackupTempSensor()
 void CbibtechnologyDlg::OnExit()
 {
 	// TODO: 在此添加命令处理程序代码
-	SYS_OK = 0;
-	if (g_bComOpen1)
-	{
-		pDtaCtrlDlg->SendMessageToController(CLOSE_HEATER);
-		Sleep(400);
-		pDtaCtrlDlg->SendMessageToController(CLOSE_REFRIGERATION);
-	}
-	if (g_bComOpen2)
-	{
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_START, FALSE);
-		Sleep(400);
-		pDtaCtrlDlg->ForceMPLC(ADDRESSM_MODE, FALSE);
-		Sleep(400);
-		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_SPEED_SETTING, 0);
-		Sleep(400);
-		pDtaCtrlDlg->WriteDToPLC(ADDRESSD_FREQUENCY_SETTING, 0);
-		Sleep(300);
-	}
-	SYS_OK = 1;
+	SysReset();
 	OnOK();
 }
 
@@ -694,6 +676,11 @@ void CbibtechnologyDlg::OnExit()
 void CbibtechnologyDlg::OnBnClickedButton1()
 {
 	// TODO: 在此添加控件通知处理程序代码
+	SysReset();
+}
+
+void CbibtechnologyDlg::SysReset()
+{
 	g_nFlagDTRZMode = 0;
 	SYS_OK = 0;
 	if (g_bComOpen1)
@@ -749,7 +736,6 @@ void CbibtechnologyDlg::OnBnClickedButton1()
 	bButtonFlag[0] = bButtonFlag[1] = bButtonFlag[2] = 0;
 	SetImg(bButtonFlag, 0);
 	SetImg(bButtonFlag, 1);
-
 }
 
 void CbibtechnologyDlg::On_ChooseHeater()
